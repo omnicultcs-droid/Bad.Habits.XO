@@ -110,15 +110,20 @@
     }
 
     /* SEARCH */
-    .search-row {
-      margin-top: 18px;
-      margin-bottom: 6px;
+    .sticky-gallery-bar {
       position: sticky;
       top: 0;
       z-index: 1000;
+      margin-top: 18px;
+      padding: 10px 10px 8px;
       background: #0b1120;
-      padding: 10px 0 8px;
-      border-bottom: 1px solid #1f2937;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.35);
+    }
+
+    .search-row {
+      margin: 0 0 6px;
     }
     .search-row label {
       display: block;
@@ -150,8 +155,8 @@
       justify-content: space-between;
       align-items: center;
       gap: 8px;
-      margin-top: 8px;
-      margin-bottom: 4px;
+      margin-top: 6px;
+      margin-bottom: 0;
       font-size: 0.8rem;
       color: #9ca3af;
     }
@@ -537,7 +542,7 @@
 
     <header>
       <div class="logo-wrapper">
-        <img src="./assets/bad-habits-xo-logo.png" alt="Bad Habits XO logo" class="logo">
+        <img src="assets/bad-habits-xo-logo.png?v=3" alt="Bad Habits XO logo" class="logo" id="brandLogo">
       </div>
 
       <h1>Wholesale Pin Order Form</h1>
@@ -606,17 +611,19 @@
         <textarea name="notes"></textarea>
       </div>
 
-      <div class="search-row">
-        <label>Search pins</label>
-        <input id="searchInput" type="search"
-          placeholder="Type to filter… e.g. germs, skull, anime" />
-      </div>
+      <div class="sticky-gallery-bar" id="stickyGalleryBar">
+        <div class="search-row">
+          <label>Search pins</label>
+          <input id="searchInput" type="search"
+            placeholder="Type to filter… e.g. germs, skull, anime" />
+        </div>
 
-      <div class="toolbar">
-        <span id="galleryStatus" class="small-note"></span>
-        <button type="button" id="clearAllBtn" class="clear-all-btn pink-btn">
-          Remove all selections
-        </button>
+        <div class="toolbar">
+          <span id="galleryStatus" class="small-note"></span>
+          <button type="button" id="clearAllBtn" class="clear-all-btn pink-btn">
+            Remove all selections
+          </button>
+        </div>
       </div>
 
       <div id="gallery" class="gallery"></div>
@@ -1057,13 +1064,36 @@
       window.addEventListener("resize", padGrid);
 
       /* ---------- SEARCH ---------- */
+      const stickyGalleryBar = document.getElementById("stickyGalleryBar");
+      let preSearchScrollY = null;
+      let searchWasActive = false;
+
       searchInput.addEventListener("input", () => {
         const q = searchInput.value.toLowerCase().trim();
-        filtered = q
+        const isActive = q.length > 0;
+
+        if (isActive && !searchWasActive) {
+          preSearchScrollY = window.scrollY;
+        }
+
+        filtered = isActive
           ? all.filter(d => d.name.includes(q))
           : all.slice();
 
         resetAndRender();
+
+        requestAnimationFrame(() => {
+          if (isActive) {
+            if (!searchWasActive) {
+              const y = stickyGalleryBar.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
+            }
+          } else if (searchWasActive && preSearchScrollY !== null) {
+            window.scrollTo({ top: preSearchScrollY, behavior: "auto" });
+            preSearchScrollY = null;
+          }
+          searchWasActive = isActive;
+        });
       });
 
       /* ---------- LOAD MORE ---------- */
