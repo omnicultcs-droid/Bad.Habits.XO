@@ -1,1186 +1,2122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Bad Habits XO Wholesale Pin Order Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      --oc-green: #f6c445;
-      --oc-green2: #f28c28;
-      --oc-pink: #ef6c22;
-      --oc-pink2: #c93b24;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #05060a;
-      color: #f9fafb;
-    }
-
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    header {
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .logo-wrapper {
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
-
-    .logo {
-      max-width: 520px;
-      width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-
-    h1 {
-      margin: 10px 0 4px;
-      font-size: 1.9rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .instruction-line {
-      margin: 6px auto 0;
-      max-width: 1200px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #ffe6a3;
-      letter-spacing: 0.02em;
-      text-align: center;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Option B: let the line wrap cleanly on smaller screens */
-    @media (max-width: 640px) {
-      .instruction-line {
-        white-space: normal;
-        overflow: visible;
-        text-overflow: clip;
-        line-height: 1.4;
-      }
-    }
-
-    .card {
-      background: #0b1120;
-      border-radius: 10px;
-      padding: 14px 16px;
-      border: 1px solid #1f2937;
-      margin-bottom: 12px;
-    }
-
-    .order-grid { display: grid; gap: 10px; }
-    @media (min-width: 720px) {
-      .order-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      padding: 8px 9px;
-      border-radius: 6px;
-      border: 1px solid #374151;
-      background: #020617;
-      color: #f9fafb;
-      font-size: 0.9rem;
-    }
-
-    textarea { min-height: 70px; resize: vertical; }
-
-    .field-help {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      margin-top: 2px;
-    }
-
-    /* SEARCH */
-    .sticky-gallery-bar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      margin-top: 18px;
-      padding: 10px 10px 8px;
-      background: #0b1120;
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.35);
-    }
-
-    .search-row {
-      margin: 0 0 6px;
-    }
-    .search-row label {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-      color: var(--oc-green);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .search-row input {
-      width: 100%;
-      padding: 9px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--oc-green);
-      background: #020617;
-      color: #f9fafb;
-      font-size: 0.95rem;
-      outline: none;
-      box-shadow: 0 0 0 1px rgba(246,196,69,0.25);
-    }
-    .search-row input::placeholder {
-      color: #6b7280;
-      font-size: 0.9rem;
-    }
-
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-top: 6px;
-      margin-bottom: 0;
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-
-    .small-note { font-size: 0.75rem; color: #9ca3af; }
-
-    /* GALLERY GRID */
-    .gallery {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin-top: 14px;
-    }
-    @media (min-width: 900px) {
-      .gallery {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-    }
-
-    .design-card {
-      border-radius: 10px;
-      padding: 6px 6px 30px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.75rem;
-      position: relative;
-    }
-
-    .design-card.selected {
-      border-color: var(--oc-green);
-      outline: 2px solid var(--oc-green);
-      outline-offset: 0;
-      box-shadow: 0 0 6px rgba(246,196,69,0.5);
-    }
-
-    .design-card.placeholder {
-      visibility: hidden;
-      border: none;
-      box-shadow: none;
-      padding: 0;
-    }
-
-    .thumb-wrapper {
-      background: #020617;
-      border-radius: 6px;
-      overflow: hidden;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .thumb-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .design-name {
-      font-size: 0.75rem;
-      text-align: center;
-      color: #e5e7eb;
-    }
-
-    /* QTY centered */
-    .design-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 4px;
-      font-size: 0.7rem;
-    }
-
-    .qty-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      text-align: center;
-    }
-
-    .qty-label {
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .qty-group {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .design-controls select {
-      padding: 4px 6px;
-      font-size: 0.8rem;
-      background: #020617;
-      color: #f9fafb;
-      border-radius: 6px;
-      border: 1px solid #374151;
-    }
-
-    /* BUTTON STYLES */
-    .green-btn {
-      background: linear-gradient(135deg, var(--oc-green), var(--oc-green2));
-      color: #020617;
-      font-weight: 800;
-      box-shadow: 0 0 10px rgba(246,196,69,0.45);
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: .15s ease;
-    }
-    .green-btn:hover {
-      filter: brightness(1.12);
-      box-shadow: 0 0 14px rgba(246,196,69,0.65);
-    }
-
-    .pink-btn {
-      background: linear-gradient(135deg, var(--oc-pink), var(--oc-pink2));
-      color: #020617;
-      font-weight: 700;
-      box-shadow: 0 0 10px rgba(239,108,34,0.45);
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: .15s ease;
-    }
-    .pink-btn:hover {
-      filter: brightness(1.12);
-      box-shadow: 0 0 14px rgba(239,108,34,0.65);
-    }
-
-    .qty-btn {
-      width: 24px;
-      height: 24px;
-      font-size: 0.9rem;
-      line-height: 1;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .remove-btn {
-      position: absolute;
-      bottom: 6px;
-      right: 6px;
-      padding: 4px 10px;
-      font-size: 0.7rem;
-      display: none;
-      white-space: nowrap;
-    }
-    .design-card.selected .remove-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .submit-btn {
-      margin-top: 16px;
-      padding: 12px 18px;
-      font-size: 1rem;
-      width: 100%;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .load-more-wrap {
-      text-align: center;
-      margin-top: 14px;
-    }
-
-    .load-more-btn {
-      padding: 10px 20px;
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .clear-all-btn {
-      padding: 6px 14px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-    }
-
-    .status {
-      margin-top: 6px;
-      font-size: 0.8rem;
-    }
-    .status.error { color: #fecaca; }
-
-    .disclaimer {
-      font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 6px;
-      text-align: right;
-    }
-
-    /* SUMMARY ROW: three even boxes */
-    .summary-row {
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .summary-col {
-      flex: 1 1 100%;
-      display: flex;
-    }
-
-    @media (min-width: 900px) {
-      .summary-col {
-        flex: 1 1 0;
-      }
-    }
-
-    .summary-panel {
-      border: 1px solid #1f2937;
-      border-radius: 10px;
-      padding: 10px 12px;
-      background: #020617;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      min-height: 140px;
-    }
-
-    .pricing-table {
-      font-size: 0.8rem;
-    }
-
-    .pricing-table h3 {
-      margin: 0 0 6px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--oc-green);
-    }
-
-    .pricing-table table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-    }
-
-    .pricing-table th,
-    .pricing-table td {
-      padding: 2px 0;
-      text-align: left;
-    }
-
-    .pricing-table th {
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .pricing-table td {
-      color: #d1d5db;
-    }
-
-    .pricing-table tr.highlight td {
-      color: var(--oc-green);
-      font-weight: 700;
-    }
-
-    .price-summary {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #e5e7eb;
-      line-height: 1.4;
-    }
-
-    .price-summary .line-strong {
-      color: var(--oc-green);
-      font-size: 0.95rem;
-    }
-
-    .tax-note {
-      margin-top: 6px;
-      font-size: 0.75rem;
-      color: #9ca3af;
-    }
-
-    .selection-summary {
-      margin: 0 0 6px;
-      font-size: 1rem;
-      font-weight: 800;
-      text-align: center;
-      color: var(--oc-green);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .selection-list {
-      flex: 1;
-      border-top: 1px solid #1f2937;
-      padding-top: 6px;
-      margin-top: 4px;
-      max-height: 140px;
-      overflow-y: auto;
-      font-size: 0.78rem;
-    }
-
-    .selection-list-empty {
-      color: #6b7280;
-      font-size: 0.78rem;
-      text-align: center;
-      margin-top: 6px;
-    }
-
-    .selection-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 0;
-      border-bottom: 1px dashed #1f2937;
-    }
-
-    .selection-row:last-child {
-      border-bottom: none;
-    }
-
-    .selection-name {
-      flex: 1 1 auto;
-      color: #e5e7eb;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .selection-controls {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .selection-qty {
-      min-width: 20px;
-      text-align: center;
-      font-weight: 600;
-      color: var(--oc-green);
-    }
-
-    .mini-btn {
-      border-radius: 999px;
-      border: 1px solid #374151;
-      background: #020617;
-      color: #e5e7eb;
-      font-size: 0.75rem;
-      padding: 2px 6px;
-      cursor: pointer;
-    }
-
-    .mini-btn.green {
-      border: none;
-      background: linear-gradient(135deg, var(--oc-green), var(--oc-green2));
-      color: #020617;
-      font-weight: 700;
-    }
-
-    .mini-btn.pink {
-      border: none;
-      background: linear-gradient(135deg, var(--oc-pink), var(--oc-pink2));
-      color: #020617;
-      font-weight: 700;
-    }
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bad Habits XO Wholesale Pin Order Form</title>
+<style>
+:root{--neon:#f6c445;--bg:#000;--panel:#090d09;--line:rgba(246,196,69,.28);--muted:#9ca3af;--text:#f5f7f5;--danger:#ff6b6b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(246,196,69,.08),transparent 28rem),#000;color:var(--text);font-family:Arial,Helvetica,sans-serif}.page{width:min(1240px,96%);margin:0 auto;padding:18px 0 50px}header{text-align:center;margin-bottom:18px}.oc-logo{display:block;width:min(900px,94%);height:auto;margin:0 auto 4px;filter:drop-shadow(0 0 6px rgba(246,196,69,.85)) drop-shadow(0 0 16px rgba(246,196,69,.45))}.oc-brand{margin:0;color:var(--neon);font-size:clamp(25px,4vw,40px);font-weight:1000;letter-spacing:.07em;text-transform:uppercase;text-shadow:0 0 12px rgba(246,196,69,.75)}.subhead{margin:8px auto 0;max-width:920px;color:#d8f8d2;font-size:.98rem;line-height:1.45}.minimum{display:inline-block;margin-top:9px;padding:7px 13px;border:1px solid var(--neon);border-radius:999px;color:var(--neon);font-weight:900;letter-spacing:.04em;box-shadow:0 0 12px rgba(246,196,69,.18)}
+.panel{background:linear-gradient(180deg,rgba(10,15,10,.96),rgba(3,7,3,.98));border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 0 18px rgba(246,196,69,.06);margin-bottom:14px}.section-title{color:var(--neon);font-size:1rem;font-weight:1000;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px;text-shadow:0 0 8px rgba(246,196,69,.35)}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}label{display:block;margin-bottom:5px;font-size:.82rem;font-weight:800;letter-spacing:.03em;color:#e5e7eb}input[type=text],input[type=email],input[type=search],textarea{width:100%;border:1px solid #263126;background:#020402;color:#fff;border-radius:9px;padding:11px 12px;font-size:.94rem;outline:none;transition:.15s ease}input:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 0 2px rgba(246,196,69,.13),0 0 12px rgba(246,196,69,.12)}textarea{min-height:82px;resize:vertical}.help{margin-top:5px;color:var(--muted);font-size:.76rem}.search-wrap{margin-bottom:10px}.search-wrap input{border-color:var(--neon);border-radius:999px;box-shadow:0 0 10px rgba(246,196,69,.10)}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:8px 0 2px;color:var(--muted);font-size:.8rem}
+button{font:inherit}.btn{border:1px solid var(--neon);background:#071007;color:var(--neon);border-radius:999px;cursor:pointer;font-weight:900;transition:.12s ease}.btn:hover{background:#0c180c;box-shadow:0 0 14px rgba(246,196,69,.30)}.btn:active{transform:scale(.97)}.btn-solid{background:var(--neon);color:#000;border-color:var(--neon);box-shadow:0 0 12px rgba(246,196,69,.34)}.btn-solid:hover{background:var(--neon);filter:brightness(1.08);box-shadow:0 0 18px rgba(246,196,69,.55)}.btn-danger{color:#ff8b8b;border-color:rgba(255,90,90,.55);background:rgba(255,90,90,.06);padding:7px 12px;font-size:.75rem}
+.gallery{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}@media(min-width:720px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(min-width:1000px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}.design-card{background:#020402;border:1px solid #1c261c;border-radius:12px;overflow:hidden;padding:7px;transition:.15s ease}.design-card.selected{border-color:var(--neon);box-shadow:0 0 0 2px rgba(246,196,69,.28),0 0 18px rgba(246,196,69,.22)}.thumb{aspect-ratio:1/1;border-radius:8px;background:#000;overflow:hidden;display:grid;place-items:center;cursor:zoom-in}.thumb img{width:100%;height:100%;object-fit:contain;display:block}.design-name{text-align:center;color:#f3f4f6;font-size:.78rem;font-weight:700;margin:7px 4px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.qty-row{display:flex;justify-content:center;align-items:center;gap:8px;margin:4px 0}.qty-btn{width:34px;height:34px;display:grid;place-items:center;padding:0;font-size:1.2rem}.qty-value{min-width:42px;height:34px;display:grid;place-items:center;border:1px solid #253025;border-radius:8px;background:#000;color:#fff;font-weight:900}.load-wrap{text-align:center;margin:16px 0 2px}.load-btn{padding:11px 24px;min-width:180px}
+.summary-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}@media(min-width:900px){.summary-grid{grid-template-columns:1fr 1fr 1fr}}.summary-card{border:1px solid var(--line);border-radius:12px;padding:14px;background:#020402;min-height:185px}.summary-card h3{margin:0 0 10px;color:var(--neon);font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{padding:5px 0;text-align:left;border-bottom:1px solid #131a13}th{color:#fff}td{color:#cfd4cf}.price-main{color:var(--neon);font-weight:1000;font-size:1.18rem;margin-bottom:6px}.muted{color:var(--muted);font-size:.78rem;line-height:1.4}.selection-total{color:var(--neon);font-weight:1000;font-size:1rem;text-align:center;margin-bottom:8px}.selection-list{max-height:150px;overflow-y:auto;border-top:1px solid #182018}.selection-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #111711;font-size:.78rem}.selection-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.selection-controls{display:flex;align-items:center;gap:5px}.mini{width:24px;height:24px;display:grid;place-items:center;padding:0;font-size:.8rem}.mini-remove{color:#ff8b8b;border-color:rgba(255,90,90,.55)}.submit{width:100%;margin-top:14px;padding:14px 18px;font-size:1rem;letter-spacing:.06em;text-transform:uppercase}.status{margin-top:8px;text-align:center;font-size:.84rem}.status.error{color:#ff9a9a}.disclaimer{text-align:right;color:#747c74;font-size:.72rem;margin:8px 2px 0}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:20px;z-index:999}.modal.open{display:flex}.modal-box{width:min(720px,96vw);background:#020402;border:1px solid var(--neon);border-radius:14px;padding:12px;box-shadow:0 0 28px rgba(246,196,69,.28);position:relative;text-align:center}.modal-box img{max-width:100%;max-height:72vh;object-fit:contain}.modal-name{margin-top:8px;color:#fff;font-weight:800}.modal-close{position:absolute;right:9px;top:9px;width:34px;height:34px;padding:0;font-size:1.1rem;background:rgba(0,0,0,.88)}@media(max-width:680px){.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.toolbar{align-items:flex-start}.oc-logo{width:98%}.subhead{font-size:.9rem}}
+
+/* === MATCH MAIN PIN GALLERY === */
+.search-wrap{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+  position:sticky;
+  top:10px;
+  z-index:1000;
+  background:#000;
+  padding:8px;
+  border-radius:999px;
+}
+.search-wrap input{
+  flex:1 1 auto;
+  padding:10px 14px;
+  border-radius:999px;
+  border:2px solid #f6c445;
+  background:#fff;
+  color:#000;
+  font-size:15px;
+  outline:none;
+  box-shadow:0 0 8px rgba(246,196,69,.6);
+}
+.search-wrap input::placeholder{color:#6b7280}
+.search-clear{
+  flex:0 0 auto;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #4b5563;
+  background:#020617;
+  color:#e5e7eb;
+  font-size:13px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+.design-card{
+  position:relative;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+  padding:6px 8px 54px;
+  height:246px;
+  box-sizing:border-box;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.design-card.selected{
+  border-color:#f6c445;
+  box-shadow:0 0 0 3px rgba(246,196,69,1),0 0 16px rgba(246,196,69,1);
+}
+.design-name{
+  font-weight:800;
+  font-size:13px;
+  color:#000 !important;
+  height:24px;
+  flex:0 0 24px;
+  line-height:12px;
+  padding:0;
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+.thumb{
+  width:100%;
+  height:140px;
+  border-radius:0 !important;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible !important;
+  flex:0 0 140px;
+  margin-top:11px;
+  margin-bottom:11px;
+  cursor:zoom-in;
+}
+.thumb img{
+  max-width:96%;
+  max-height:96%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  border-radius:0 !important;
+  border:none !important;
+  box-shadow:none !important;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.qty-row{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  background:#000;
+  padding:4px 8px;
+  border-radius:999px;
+  margin:0;
+}
+.qty-btn{
+  width:auto;
+  height:auto;
+  min-width:0;
+  padding:3px 9px;
+  border:none;
+  border-radius:999px;
+  background:#f6c445;
+  color:#000;
+  box-shadow:0 0 18px rgba(246,196,69,1);
+  font-weight:900;
+  font-size:14px;
+  line-height:1;
+  cursor:pointer;
+}
+.qty-value{
+  min-width:24px;
+  height:auto;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:#fff;
+  text-align:center;
+  font-weight:900;
+  font-size:13px;
+  display:block;
+}
+
+/* LARGE PIN CARD */
+.modal{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,.92);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:999999;
+}
+.modal.open{display:flex}
+.modal-box{
+  position:relative;
+  width:400px;
+  max-width:88vw;
+  height:560px;
+  max-height:88vh;
+  box-sizing:border-box;
+  padding:18px 18px 72px;
+  background:#fff;
+  border:2px solid #f6c445;
+  border-radius:14px;
+  box-shadow:0 0 0 3px rgba(246,196,69,.35),0 0 25px rgba(246,196,69,.75);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.modal-name{
+  order:-1;
+  width:100%;
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#000;
+  font-weight:800;
+  font-size:20px;
+  line-height:22px;
+  text-align:center;
+  margin:0;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+.modal-img-wrap{
+  flex:1 1 auto;
+  width:100%;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:14px 0;
+  overflow:visible;
+}
+.modal-box img{
+  max-width:96%;
+  max-height:96%;
+  object-fit:contain;
+  display:block;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.modal-controls{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  background:#000;
+  padding:7px 12px;
+  border-radius:999px;
+}
+.modal-qty-btn{
+  border:none;
+  border-radius:999px;
+  background:#f6c445;
+  color:#000;
+  font-weight:900;
+  font-size:20px;
+  line-height:1;
+  width:34px;
+  height:34px;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(246,196,69,1);
+}
+.modal-qty{
+  min-width:30px;
+  color:#fff;
+  text-align:center;
+  font-size:17px;
+  font-weight:900;
+}
+.modal-close{
+  position:absolute;
+  right:8px;
+  top:8px;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:1px solid #4b5563;
+  border-radius:999px;
+  background:#020617;
+  color:#fff;
+  font-size:20px;
+  z-index:5;
+  cursor:pointer;
+}
+
+@media(max-width:600px){
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .design-card{height:238px;padding-left:5px;padding-right:5px}
+}
+
+
+/* === WHOLESALE CARD ALIGNMENT + NEON BUTTON PASS === */
+
+/* Keep every gallery tile on the same grid and same height */
+.gallery{
+  align-items:stretch !important;
+}
+.design-card{
+  height:260px !important;
+  min-height:260px !important;
+  max-height:260px !important;
+  display:grid !important;
+  grid-template-rows:36px 1fr 42px !important;
+  padding:8px !important;
+  overflow:hidden !important;
+}
+.design-name{
+  height:36px !important;
+  min-height:36px !important;
+  max-height:36px !important;
+  margin:0 !important;
+  padding:0 3px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  line-height:15px !important;
+  overflow:hidden !important;
+}
+.thumb{
+  height:auto !important;
+  min-height:0 !important;
+  margin:4px 0 !important;
+  flex:none !important;
+  align-self:stretch !important;
+}
+.thumb img{
+  max-width:96% !important;
+  max-height:100% !important;
+}
+.qty-row{
+  position:static !important;
+  left:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+  align-self:end !important;
+  justify-self:center !important;
+  margin:0 !important;
+  height:36px !important;
+  min-height:36px !important;
+}
+
+/* All interactive buttons get the OMNI-CULT neon treatment */
+.btn,
+.qty-btn,
+.modal-qty-btn,
+.modal-close,
+.search-clear,
+.load-btn,
+.submit,
+.btn-danger{
+  box-shadow:
+    0 0 7px rgba(246,196,69,.95),
+    0 0 15px rgba(246,196,69,.55) !important;
+  transition:
+    transform .12s ease,
+    box-shadow .12s ease,
+    filter .12s ease,
+    background .12s ease !important;
+}
+.btn:hover,
+.qty-btn:hover,
+.modal-qty-btn:hover,
+.modal-close:hover,
+.search-clear:hover,
+.load-btn:hover,
+.submit:hover,
+.btn-danger:hover{
+  box-shadow:
+    0 0 9px rgba(246,196,69,1),
+    0 0 22px rgba(246,196,69,.85) !important;
+  filter:brightness(1.08);
+}
+
+/* Make the dark utility buttons glow green too */
+.search-clear,
+.modal-close{
+  border-color:#f6c445 !important;
+  color:#fff !important;
+}
+
+/* Remove-all remains visually red, but still has the requested neon glow */
+.btn-danger{
+  box-shadow:
+    0 0 7px rgba(255,90,90,.9),
+    0 0 15px rgba(255,90,90,.5) !important;
+}
+.btn-danger:hover{
+  box-shadow:
+    0 0 9px rgba(255,90,90,1),
+    0 0 22px rgba(255,90,90,.8) !important;
+}
+
+@media(max-width:600px){
+  .design-card{
+    height:252px !important;
+    min-height:252px !important;
+    max-height:252px !important;
+  }
+}
+
+
+
+/* === STRICT 8-COLUMN WHOLESALE GRID === */
+
+/* Widen the page enough to hold 8 equal cards comfortably */
+.page{
+  width:min(1500px, 96vw) !important;
+  max-width:1500px !important;
+}
+
+/* Exactly 8 equal columns on normal desktop */
+.gallery{
+  display:grid !important;
+  grid-template-columns:repeat(8, minmax(0,1fr)) !important;
+  gap:10px !important;
+  align-items:stretch !important;
+  justify-items:stretch !important;
+}
+
+/* Every card gets the exact same geometry */
+.design-card{
+  width:100% !important;
+  height:304px !important;
+  min-height:304px !important;
+  max-height:304px !important;
+  margin:0 !important;
+  padding:8px !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  grid-template-rows:44px 210px 34px !important;
+  border-radius:10px !important;
+  overflow:hidden !important;
+}
+
+/* Exact same title box */
+.design-name{
+  width:100% !important;
+  height:44px !important;
+  min-height:44px !important;
+  max-height:44px !important;
+  margin:0 !important;
+  padding:0 3px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  line-height:15px !important;
+  overflow:hidden !important;
+}
+
+/* Exact same image box */
+.thumb{
+  width:100% !important;
+  height:210px !important;
+  min-height:210px !important;
+  max-height:210px !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+  background:#fff !important;
+}
+
+.thumb img{
+  display:block !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:94% !important;
+  max-height:94% !important;
+  object-fit:contain !important;
+}
+
+/* Exact same control position */
+.qty-row{
+  position:static !important;
+  width:max-content !important;
+  height:34px !important;
+  min-height:34px !important;
+  margin:0 auto !important;
+  padding:4px 8px !important;
+  transform:none !important;
+  align-self:end !important;
+  justify-self:center !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+/* Strong glow on all normal buttons */
+button:not(.btn-danger),
+.btn:not(.btn-danger),
+.qty-btn,
+.modal-qty-btn,
+.modal-close,
+.search-clear,
+.load-btn,
+.submit{
+  box-shadow:
+    0 0 6px #f6c445,
+    0 0 13px #f6c445,
+    0 0 24px rgba(246,196,69,.9) !important;
+}
+
+/* Red destructive button keeps a red glow */
+.btn-danger{
+  box-shadow:
+    0 0 6px #ff5a5a,
+    0 0 13px #ff5a5a,
+    0 0 24px rgba(255,90,90,.9) !important;
+}
+
+/* Responsive only when the screen truly gets too narrow */
+@media(max-width:1250px){
+  .gallery{grid-template-columns:repeat(6,minmax(0,1fr)) !important;}
+}
+@media(max-width:920px){
+  .gallery{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}
+}
+@media(max-width:620px){
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+  .design-card{
+    height:282px !important;
+    min-height:282px !important;
+    max-height:282px !important;
+    grid-template-rows:44px 188px 34px !important;
+  }
+  .thumb{
+    height:188px !important;
+    min-height:188px !important;
+    max-height:188px !important;
+  }
+}
+
+
+/* === REMOVE ALL BUTTON REWORK === */
+.toolbar{
+  margin:10px 0 0 !important;
+  min-height:24px;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+}
+
+.clear-row{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  margin:4px 0 10px;
+}
+
+.clear-row-top .clear-all-btn{
+  font-size:.78rem;
+  padding:8px 14px;
+}
+
+.clear-all-btn{
+  background:#071007 !important;
+  color:#f6c445 !important;
+  border:1px solid #f6c445 !important;
+  border-radius:999px !important;
+  font-weight:1000 !important;
+  letter-spacing:.03em;
+  box-shadow:
+    0 0 6px #f6c445,
+    0 0 13px rgba(246,196,69,.88),
+    0 0 24px rgba(246,196,69,.48) !important;
+}
+
+.clear-all-btn:hover{
+  background:#0d1a0d !important;
+  color:#f6c445 !important;
+  box-shadow:
+    0 0 8px #f6c445,
+    0 0 18px #f6c445,
+    0 0 30px rgba(246,196,69,.72) !important;
+}
+
+.gallery-bottom-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:18px 0 4px;
+}
+
+.gallery-bottom-actions .clear-all-btn{
+  padding:10px 18px;
+  font-size:.82rem;
+}
+
+.gallery-bottom-actions .load-btn{
+  margin:0 !important;
+}
+
+@media(max-width:620px){
+  .clear-row{
+    justify-content:center;
+  }
+  .clear-all-btn{
+    width:min(100%,320px);
+  }
+}
+
+
+/* === REMOVE BUTTON POSITIONING: TOP BESIDE CLEAR / BOTTOM RIGHT === */
+.sticky-search{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto auto !important;
+  gap:10px !important;
+  align-items:center !important;
+}
+
+.sticky-search .clear-all-btn{
+  white-space:nowrap !important;
+  padding:10px 16px !important;
+  font-size:.78rem !important;
+}
+
+.gallery-bottom-actions{
+  position:relative !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:58px !important;
+  margin:18px 0 4px !important;
+}
+
+.gallery-bottom-actions .load-btn{
+  margin:0 auto !important;
+}
+
+.gallery-bottom-actions .clear-all-btn{
+  position:absolute !important;
+  right:0 !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  white-space:nowrap !important;
+  padding:10px 16px !important;
+  font-size:.78rem !important;
+}
+
+@media(max-width:800px){
+  .sticky-search{
+    grid-template-columns:minmax(0,1fr) auto !important;
+  }
+  .sticky-search .clear-all-btn{
+    grid-column:1 / -1 !important;
+    justify-self:end !important;
+  }
+  .gallery-bottom-actions{
+    min-height:110px !important;
+    align-items:flex-start !important;
+  }
+  .gallery-bottom-actions .clear-all-btn{
+    top:auto !important;
+    bottom:0 !important;
+    right:0 !important;
+    transform:none !important;
+  }
+}
+
+
+/* === CLEAR BUTTONS FINAL FIX === */
+.search-wrap{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto auto !important;
+  gap:10px !important;
+  align-items:center !important;
+  position:sticky !important;
+  top:10px !important;
+  z-index:1000 !important;
+  background:#000 !important;
+  padding:8px !important;
+  border-radius:999px !important;
+}
+.search-wrap .clear-all-btn{
+  white-space:nowrap !important;
+  padding:10px 16px !important;
+  font-size:.78rem !important;
+}
+.clear-all-btn{
+  background:#071007 !important;
+  color:#f6c445 !important;
+  border:1px solid #f6c445 !important;
+  border-radius:999px !important;
+  font-weight:1000 !important;
+  box-shadow:
+    0 0 6px #f6c445,
+    0 0 13px rgba(246,196,69,.9),
+    0 0 24px rgba(246,196,69,.55) !important;
+}
+.gallery-bottom-actions{
+  position:relative !important;
+  min-height:64px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  margin:18px 0 4px !important;
+}
+.gallery-bottom-actions .load-btn{
+  margin:0 auto !important;
+}
+.gallery-bottom-actions .clear-all-btn{
+  position:absolute !important;
+  right:0 !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+}
+@media(max-width:900px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto !important;
+  }
+  .search-wrap .clear-all-btn{
+    grid-column:1 / -1 !important;
+    justify-self:end !important;
+  }
+}
+
+
+/* === CLEAR / REMOVE BUTTON MATCH === */
+.search-wrap .search-clear,
+.search-wrap .clear-all-btn{
+  background:#071007 !important;
+  color:#f6c445 !important;
+  border:1px solid #f6c445 !important;
+  border-radius:999px !important;
+  font-weight:1000 !important;
+  box-shadow:
+    0 0 6px #f6c445,
+    0 0 13px rgba(246,196,69,.9),
+    0 0 24px rgba(246,196,69,.55) !important;
+}
+.search-wrap .search-clear:hover,
+.search-wrap .clear-all-btn:hover{
+  background:#0d1a0d !important;
+  color:#f6c445 !important;
+  box-shadow:
+    0 0 8px #f6c445,
+    0 0 18px #f6c445,
+    0 0 30px rgba(246,196,69,.72) !important;
+}
+
+
+/* === MINI CART THEME REWORK === */
+.selection-list{
+  max-height:190px !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding-right:14px !important;
+  scrollbar-width:thin;
+  scrollbar-color:#f6c445 #071007;
+}
+
+/* Chrome / Edge / Safari */
+.selection-list::-webkit-scrollbar{
+  width:10px;
+}
+.selection-list::-webkit-scrollbar-track{
+  background:#071007;
+  border-radius:999px;
+  box-shadow:inset 0 0 6px rgba(246,196,69,.18);
+}
+.selection-list::-webkit-scrollbar-thumb{
+  background:#f6c445;
+  border:2px solid #071007;
+  border-radius:999px;
+  box-shadow:
+    0 0 6px #f6c445,
+    0 0 12px rgba(246,196,69,.75);
+}
+.selection-list::-webkit-scrollbar-thumb:hover{
+  background:#ffd866;
+  box-shadow:
+    0 0 8px #f6c445,
+    0 0 16px rgba(246,196,69,.95);
+}
+
+.selection-row{
+  padding-right:4px !important;
+}
+
+.selection-controls{
+  display:flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  padding-right:2px !important;
+}
+
+/* Make ALL mini-cart buttons solid neon green */
+.selection-controls .mini,
+.selection-controls .mini-remove{
+  width:28px !important;
+  height:28px !important;
+  padding:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  border:1px solid #f6c445 !important;
+  border-radius:999px !important;
+  background:#f6c445 !important;
+  color:#000 !important;
+  font-size:.9rem !important;
+  font-weight:1000 !important;
+  line-height:1 !important;
+  box-shadow:
+    0 0 5px #f6c445,
+    0 0 11px rgba(246,196,69,.9),
+    0 0 18px rgba(246,196,69,.6) !important;
+}
+
+.selection-controls .mini:hover,
+.selection-controls .mini-remove:hover{
+  background:#ffd866 !important;
+  color:#000 !important;
+  box-shadow:
+    0 0 7px #f6c445,
+    0 0 15px #f6c445,
+    0 0 24px rgba(246,196,69,.9) !important;
+}
+
+/* Remove any inherited red styling from the X button */
+.selection-controls .mini-remove{
+  border-color:#f6c445 !important;
+  color:#000 !important;
+}
+
+/* Keep quantity readable between the solid buttons */
+.selection-controls strong{
+  min-width:18px;
+  text-align:center;
+  color:#fff;
+  font-weight:1000;
+}
+
+
+/* === MINI CART QTY INPUT + LARGER SYMBOLS === */
+.selection-controls{
+  gap:7px !important;
+}
+
+/* Keep circles compact but make the actual symbols much larger */
+.selection-controls .mini,
+.selection-controls .mini-remove{
+  width:30px !important;
+  height:30px !important;
+  font-size:1.25rem !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+}
+
+.selection-controls .minus,
+.selection-controls .plus,
+.selection-controls .remove{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding-bottom:2px !important;
+}
+
+/* Editable quantity field in the mini cart */
+.mini-qty-input{
+  width:46px !important;
+  height:30px !important;
+  padding:0 4px !important;
+  border:1px solid #f6c445 !important;
+  border-radius:8px !important;
+  background:#020402 !important;
+  color:#fff !important;
+  text-align:center !important;
+  font-weight:1000 !important;
+  font-size:.95rem !important;
+  outline:none !important;
+  box-shadow:0 0 6px rgba(246,196,69,.45) !important;
+  -moz-appearance:textfield;
+}
+
+.mini-qty-input:focus{
+  box-shadow:
+    0 0 7px #f6c445,
+    0 0 14px rgba(246,196,69,.75) !important;
+}
+
+/* Hide browser number spinners so the box stays clean */
+.mini-qty-input::-webkit-outer-spin-button,
+.mini-qty-input::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  margin:0;
+}
+
+/* Bottom gallery actions no longer need space for a second remove button */
+.gallery-bottom-actions{
+  min-height:56px !important;
+}
+
+
+/* === BIGGER MINI-CART + / - / X === */
+.selection-controls .mini,
+.selection-controls .mini-remove{
+  width:34px !important;
+  height:34px !important;
+  min-width:34px !important;
+  min-height:34px !important;
+  font-size:1.65rem !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+  padding:0 !important;
+}
+
+.selection-controls .minus,
+.selection-controls .plus,
+.selection-controls .remove{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+.selection-controls .remove{
+  font-size:1.55rem !important;
+}
+
+.mini-qty-input{
+  height:34px !important;
+}
+
+
+/* === MINI CART MATCHES PIN-CARD CONTROLS === */
+.selection-controls{
+  display:flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  padding-right:6px !important;
+}
+
+/* Same dimensions and pill shape as the +/- buttons on the pin cards */
+.selection-controls .qty-btn{
+  width:34px !important;
+  min-width:34px !important;
+  height:26px !important;
+  min-height:26px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:#f6c445 !important;
+  color:#000 !important;
+  font-size:1.15rem !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-shadow:
+    0 0 5px #f6c445,
+    0 0 11px rgba(246,196,69,.9),
+    0 0 18px rgba(246,196,69,.62) !important;
+}
+
+.selection-controls .qty-btn:hover{
+  background:#ffd866 !important;
+  box-shadow:
+    0 0 7px #f6c445,
+    0 0 15px #f6c445,
+    0 0 24px rgba(246,196,69,.9) !important;
+}
+
+/* Editable quantity centered between the matching buttons */
+.mini-qty-input{
+  width:42px !important;
+  height:26px !important;
+  padding:0 3px !important;
+  border:1px solid #f6c445 !important;
+  border-radius:7px !important;
+  background:#020402 !important;
+  color:#fff !important;
+  text-align:center !important;
+  font-size:.9rem !important;
+  font-weight:1000 !important;
+  outline:none !important;
+  box-shadow:0 0 5px rgba(246,196,69,.45) !important;
+  -moz-appearance:textfield;
+}
+.mini-qty-input:focus{
+  box-shadow:0 0 7px #f6c445,0 0 13px rgba(246,196,69,.78) !important;
+}
+.mini-qty-input::-webkit-outer-spin-button,
+.mini-qty-input::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  margin:0;
+}
+
+/* Keep the green scrollbar from covering the control glow */
+.selection-list{
+  padding-right:18px !important;
+}
+
+
+/* === FINAL WHOLESALE UX POLISH === */
+.search-wrap{
+  grid-template-columns:minmax(0,1fr) auto auto auto !important;
+}
+.sticky-selected{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:0 14px;
+  border:1px solid #f6c445;
+  border-radius:999px;
+  background:#071007;
+  color:#f6c445;
+  font-size:.8rem;
+  font-weight:1000;
+  white-space:nowrap;
+  box-shadow:0 0 6px #f6c445,0 0 13px rgba(246,196,69,.8);
+}
+
+tr.active-tier td{
+  background:rgba(246,196,69,.14) !important;
+  color:#f6c445 !important;
+  font-weight:1000 !important;
+  box-shadow:inset 0 1px 0 rgba(246,196,69,.45),inset 0 -1px 0 rgba(246,196,69,.45);
+}
+
+.calc-line{
+  margin-top:4px;
+  color:#f3f4f6;
+}
+.next-tier{
+  margin-top:10px;
+  padding:9px 10px;
+  border:1px solid rgba(246,196,69,.35);
+  border-radius:9px;
+  background:rgba(246,196,69,.055);
+  color:#cfe9c9;
+  line-height:1.35;
+}
+.next-tier strong{color:#f6c445}
+
+.submit.submit-locked{
+  background:#111 !important;
+  color:#687068 !important;
+  border-color:#2a312a !important;
+  box-shadow:none !important;
+  cursor:not-allowed !important;
+  filter:none !important;
+}
+.submit.submit-ready{
+  background:#f6c445 !important;
+  color:#000 !important;
+  border-color:#f6c445 !important;
+  box-shadow:0 0 8px #f6c445,0 0 18px rgba(246,196,69,.95),0 0 32px rgba(246,196,69,.65) !important;
+}
+
+
+
+@media(max-width:1100px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto auto !important;
+  }
+  .sticky-selected{
+    grid-column:1 / -1;
+    justify-self:start;
+    min-height:34px;
+  }
+}
+
+
+/* === WHOLESALE INSTRUCTION BOX === */
+.instruction-box{
+  width:min(100%, 980px) !important;
+  margin:16px auto 14px !important;
+  padding:14px 20px !important;
+  border:1px solid rgba(246,196,69,.58) !important;
+  border-radius:14px !important;
+  background:linear-gradient(180deg, rgba(8,14,8,.96), rgba(2,6,2,.98)) !important;
+  color:#eef6ec !important;
+  font-size:1.05rem !important;
+  line-height:1.55 !important;
+  font-weight:700 !important;
+  text-align:center !important;
+  box-shadow:
+    0 0 8px rgba(246,196,69,.20),
+    inset 0 0 12px rgba(246,196,69,.035) !important;
+}
+.instruction-box div + div{
+  margin-top:3px;
+}
+.instruction-box div:nth-child(2){
+  color:#d8f8d2;
+}
+.instruction-box div:nth-child(3){
+  color:#bfeab7;
+}
+@media(max-width:700px){
+  .instruction-box{
+    font-size:.96rem !important;
+    line-height:1.45 !important;
+    padding:12px 14px !important;
+  }
+}
+
+
+/* === CLEARER WHOLESALE INSTRUCTIONS === */
+.instruction-box{
+  width:min(100%, 1000px) !important;
+  padding:16px 20px !important;
+  text-align:left !important;
+}
+
+.instruction-step{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:10px;
+  align-items:start;
+  font-size:1.02rem;
+  line-height:1.45;
+  color:#eaf4e8;
+}
+
+.instruction-step + .instruction-step{
+  margin-top:10px;
+}
+
+.instruction-step span{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f6c445;
+  color:#000;
+  font-weight:1000;
+  box-shadow:0 0 10px rgba(246,196,69,.75);
+}
+
+.instruction-step strong{
+  color:#f6c445;
+}
+
+
+
+
+/* === FIX INSTRUCTION LAYOUT === */
+.instruction-box{
+  width:min(100%, 1080px) !important;
+  box-sizing:border-box !important;
+  padding:18px 24px !important;
+  display:block !important;
+  text-align:left !important;
+}
+
+.instruction-step{
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  font-size:1.05rem !important;
+  line-height:1.5 !important;
+  color:#ffffff !important;
+  white-space:normal !important;
+}
+
+.instruction-step + .instruction-step{
+  margin-top:12px !important;
+}
+
+.instruction-step span{
+  display:inline-flex !important;
+  vertical-align:middle !important;
+  width:30px !important;
+  height:30px !important;
+  min-width:30px !important;
+  margin-right:10px !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-radius:50% !important;
+  background:#f6c445 !important;
+  color:#000000 !important;
+  font-weight:1000 !important;
+  box-shadow:0 0 10px rgba(246,196,69,.75) !important;
+}
+
+.instruction-step strong{
+  color:#ffffff !important;
+}
+
+/* Keep every instruction word bright white except the black number inside green circles */
+.instruction-box,
+.instruction-box div,
+.instruction-box strong{
+  color:#ffffff !important;
+}
+
+@media (max-width:700px){
+  .instruction-box{
+    padding:15px 16px !important;
+  }
+  .instruction-step{
+    font-size:.98rem !important;
+  }
+}
+
+
+/* === 200 MINIMUM ALERT: RADIATING GLOW === */
+.minimum{
+  position:relative;
+  transform-origin:center;
+}
+
+.minimum.minimum-alert{
+  animation:minimumGlow 1.7s ease-out 1 !important;
+}
+
+@keyframes minimumGlow{
+  0%{
+    transform:scale(1);
+    background:#071007;
+    color:#f6c445;
+    box-shadow:
+      0 0 0 0 rgba(246,196,69,.95),
+      0 0 10px rgba(246,196,69,.45);
+  }
+  35%{
+    transform:scale(1.08);
+    background:#f6c445;
+    color:#000;
+    box-shadow:
+      0 0 0 10px rgba(246,196,69,.45),
+      0 0 24px #f6c445,
+      0 0 42px rgba(246,196,69,.95);
+  }
+  70%{
+    transform:scale(1.04);
+    background:#071007;
+    color:#f6c445;
+    box-shadow:
+      0 0 0 22px rgba(246,196,69,.12),
+      0 0 18px rgba(246,196,69,.75);
+  }
+  100%{
+    transform:scale(1);
+    background:#071007;
+    color:#f6c445;
+    box-shadow:
+      0 0 0 32px rgba(246,196,69,0),
+      0 0 10px rgba(246,196,69,.35);
+  }
+}
+
+
+/* === WIDER ONE-LINE INSTRUCTIONS === */
+.instruction-box{
+  width:min(1280px, 96vw) !important;
+  max-width:1280px !important;
+  padding:18px 24px !important;
+}
+
+.instruction-step{
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  color:#fff !important;
+  font-size:1.02rem !important;
+  line-height:1.45 !important;
+  white-space:nowrap !important;
+}
+
+.instruction-step + .instruction-step{
+  margin-top:10px !important;
+}
+
+.instruction-step strong{
+  color:#fff !important;
+}
+
+@media(max-width:1100px){
+  .instruction-step{
+    white-space:normal !important;
+  }
+}
+
+
+/* === FINAL HEADER COPY / WIDTH TWEAK === */
+.instruction-box{
+  width:min(1120px, 92vw) !important;
+  max-width:1120px !important;
+}
+
+/* Keep the three desktop instruction lines on one line where space allows */
+.instruction-step{
+  white-space:nowrap !important;
+}
+
+@media(max-width:1180px){
+  .instruction-step{
+    white-space:normal !important;
+  }
+}
+
+
+/* === FINAL SEARCH + HEADER WIDTH POLISH === */
+
+/* Slightly narrower than the previous version without crowding step 2 */
+.instruction-box{
+  width:min(1180px, 92vw) !important;
+  max-width:1180px !important;
+}
+
+/* Search row is now: input / selected count / remove all */
+.search-wrap{
+  grid-template-columns:minmax(0,1fr) auto auto !important;
+  gap:10px !important;
+}
+
+.search-field-wrap{
+  position:relative;
+  min-width:0;
+}
+
+.search-field-wrap #searchInput{
+  width:100% !important;
+  padding-right:58px !important;
+}
+
+/* Hide Chrome's small built-in search X; use our larger themed one */
+#searchInput::-webkit-search-cancel-button{
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  display:none !important;
+}
+
+
+
+@media(max-width:1100px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto !important;
+  }
+  .sticky-selected{
+    grid-column:auto !important;
+  }
+  #clearAllBtnTop{
+    grid-column:1 / -1;
+    justify-self:end;
+  }
+}
+
+
+/* === BRANDED CONFIRM MODAL === */
+.confirm-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.80);
+  backdrop-filter:blur(3px);
+}
+.confirm-modal.open{
+  display:flex;
+}
+.confirm-card{
+  width:min(460px,92vw);
+  padding:24px 24px 22px;
+  border:1px solid #f6c445;
+  border-radius:16px;
+  background:linear-gradient(180deg,#091009,#020402);
+  color:#fff;
+  text-align:center;
+  box-shadow:
+    0 0 12px rgba(246,196,69,.45),
+    0 0 28px rgba(246,196,69,.22);
+}
+.confirm-title{
+  color:#f6c445;
+  font-size:1.2rem;
+  font-weight:1000;
+  letter-spacing:.05em;
+  margin-bottom:10px;
+  text-shadow:0 0 8px rgba(246,196,69,.55);
+}
+.confirm-text{
+  color:#fff;
+  font-size:.95rem;
+  line-height:1.45;
+  margin-bottom:20px;
+}
+.confirm-actions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+.confirm-btn{
+  min-width:140px;
+  padding:11px 18px;
+  border-radius:999px;
+  font-weight:1000;
+  cursor:pointer;
+  border:1px solid #f6c445;
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.confirm-cancel{
+  background:#071007;
+  color:#f6c445;
+  box-shadow:0 0 8px rgba(246,196,69,.35);
+}
+.confirm-remove{
+  background:#f6c445;
+  color:#000;
+  box-shadow:
+    0 0 6px #f6c445,
+    0 0 14px rgba(246,196,69,.70);
+}
+.confirm-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:
+    0 0 8px #f6c445,
+    0 0 18px rgba(246,196,69,.85);
+}
+@media(max-width:520px){
+  .confirm-actions{
+    flex-direction:column;
+  }
+  .confirm-btn{
+    width:100%;
+  }
+}
+
+
+/* === INTEGRATED SEARCH CLEAR CONTROL === */
+.search-field-wrap{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:stretch;
+  min-width:0;
+  border:2px solid #f6c445;
+  border-radius:999px;
+  background:#fff;
+  overflow:hidden;
+  box-shadow:
+    0 0 7px #f6c445,
+    0 0 16px rgba(246,196,69,.65);
+}
+
+.search-field-wrap #searchInput{
+  width:100% !important;
+  min-width:0;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:#fff !important;
+  color:#000 !important;
+  padding:11px 16px !important;
+  outline:none !important;
+}
+
+.search-field-wrap #searchInput:focus{
+  box-shadow:none !important;
+}
+
+/* Hide the browser's built-in search cancel icon */
+#searchInput::-webkit-search-cancel-button{
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  display:none !important;
+}
+
+.search-clear-integrated{
+  min-width:92px;
+  padding:0 18px;
+  border:0;
+  border-left:1px solid #2c2c2c;
+  border-radius:0;
+  background:#111;
+  color:#fff;
+  font-size:.82rem;
+  font-weight:1000;
+  letter-spacing:.04em;
+  cursor:pointer;
+  opacity:0;
+  pointer-events:none;
+  transition:background .12s ease, opacity .12s ease;
+}
+
+.search-clear-integrated.visible{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.search-clear-integrated:hover{
+  background:#242424;
+}
+
+
+/* === MOBILE STICKY BAR COMPACT FIX === */
+@media (max-width:700px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto auto !important;
+    gap:6px !important;
+    padding:6px !important;
+    border-radius:22px !important;
+    align-items:center !important;
+  }
+
+  .search-field-wrap{
+    min-width:0 !important;
+  }
+
+  .search-field-wrap #searchInput{
+    min-width:0 !important;
+    padding:10px 11px !important;
+    font-size:14px !important;
+  }
+
+  .search-clear-integrated{
+    min-width:58px !important;
+    padding:0 9px !important;
+    font-size:.70rem !important;
+  }
+
+  .sticky-selected{
+    grid-column:auto !important;
+    justify-self:auto !important;
+    min-height:38px !important;
+    padding:0 9px !important;
+    font-size:.70rem !important;
+  }
+
+  #clearAllBtnTop{
+    grid-column:auto !important;
+    justify-self:auto !important;
+    width:auto !important;
+    min-width:58px !important;
+    padding:10px 9px !important;
+    font-size:0 !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+  }
+
+  #clearAllBtnTop::after{
+    content:"REMOVE";
+    font-size:.70rem;
+    font-weight:1000;
+    letter-spacing:.02em;
+  }
+}
+
+
+/* === MOBILE SEARCH READABILITY FIX === */
+@media(max-width:620px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto auto !important;
+    gap:6px !important;
+    padding:7px !important;
+  }
+  .search-field-wrap{min-width:0 !important;}
+  .search-field-wrap #searchInput{
+    font-size:16px !important;
+    padding:10px 12px !important;
+  }
+  .search-field-wrap #searchInput::placeholder{
+    font-size:16px !important;
+  }
+  .sticky-selected{
+    padding:0 10px !important;
+    font-size:.72rem !important;
+  }
+  #clearAllBtnTop{
+    padding:10px 11px !important;
+    font-size:.72rem !important;
+  }
+}
+
+/* === FINAL MOBILE STICKY BAR FIX: SEARCH ALWAYS VISIBLE === */
+@media(max-width:620px){
+  .search-wrap{
+    grid-template-columns:1fr auto !important;
+    grid-template-areas:
+      "search search"
+      "selected remove" !important;
+    gap:7px !important;
+    padding:7px !important;
+    border-radius:22px !important;
+  }
+  .search-field-wrap{
+    grid-area:search !important;
+    width:100% !important;
+    min-width:0 !important;
+  }
+  .search-field-wrap #searchInput{
+    width:100% !important;
+    min-width:0 !important;
+    font-size:16px !important;
+    padding:11px 14px !important;
+  }
+  .search-field-wrap #searchInput::placeholder{
+    font-size:16px !important;
+  }
+  .sticky-selected{
+    grid-area:selected !important;
+    width:auto !important;
+    justify-self:start !important;
+    min-height:38px !important;
+    padding:0 13px !important;
+    font-size:.72rem !important;
+    white-space:nowrap !important;
+  }
+  #clearAllBtnTop{
+    grid-area:remove !important;
+    justify-self:end !important;
+    width:auto !important;
+    min-width:78px !important;
+    padding:10px 13px !important;
+    font-size:0 !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+  }
+  #clearAllBtnTop::after{
+    content:"REMOVE" !important;
+    font-size:.72rem !important;
+    font-weight:1000 !important;
+    letter-spacing:.02em !important;
+  }
+}
+
+/* === MOBILE ONE-LINE STICKY BAR: KEEP SEARCH READABLE === */
+@media(max-width:620px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto auto !important;
+    grid-template-areas:none !important;
+    gap:6px !important;
+    padding:6px !important;
+    border-radius:999px !important;
+    align-items:center !important;
+  }
+
+  .search-field-wrap{
+    grid-area:auto !important;
+    min-width:0 !important;
+    width:auto !important;
+  }
+
+  /* Hidden CLEAR should not steal ~92px from the search field. */
+  .search-clear-integrated{
+    min-width:0 !important;
+    width:0 !important;
+    padding:0 !important;
+    border-left:0 !important;
+    overflow:hidden !important;
+  }
+  .search-clear-integrated.visible{
+    width:54px !important;
+    min-width:54px !important;
+    padding:0 7px !important;
+    border-left:1px solid #2c2c2c !important;
+    font-size:.66rem !important;
+  }
+
+  .search-field-wrap #searchInput{
+    min-width:0 !important;
+    width:100% !important;
+    padding:10px 12px !important;
+    font-size:15px !important;
+  }
+  .search-field-wrap #searchInput::placeholder{
+    font-size:15px !important;
+  }
+
+  .sticky-selected{
+    grid-area:auto !important;
+    justify-self:auto !important;
+    width:auto !important;
+    min-height:38px !important;
+    padding:0 9px !important;
+    font-size:.68rem !important;
+    white-space:nowrap !important;
+  }
+
+  #clearAllBtnTop{
+    grid-area:auto !important;
+    justify-self:auto !important;
+    width:auto !important;
+    min-width:68px !important;
+    padding:10px 9px !important;
+    font-size:0 !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+  }
+  #clearAllBtnTop::after{
+    content:"REMOVE" !important;
+    font-size:.68rem !important;
+    font-weight:1000 !important;
+    letter-spacing:.01em !important;
+  }
+}
+
+
+/* === FINAL MOBILE ONE-LINE LAYOUT === */
+@media(max-width:620px){
+  .search-wrap{
+    grid-template-columns:minmax(0,1fr) auto auto !important;
+    grid-template-areas:none !important;
+    gap:6px !important;
+    padding:6px !important;
+    border-radius:999px !important;
+  }
+  .search-field-wrap{min-width:0 !important;width:auto !important;}
+  .search-field-wrap #searchInput{
+    min-width:0 !important;
+    width:100% !important;
+    font-size:15px !important;
+    padding:10px 11px !important;
+  }
+  .search-clear-integrated:not(.visible){display:none !important;}
+  .search-clear-integrated.visible{display:flex !important;}
+  .sticky-selected{
+    min-width:0 !important;
+    padding:0 8px !important;
+    font-size:.68rem !important;
+    white-space:nowrap !important;
+  }
+  #clearAllBtnTop{
+    min-width:64px !important;
+    padding:10px 8px !important;
+    font-size:0 !important;
+    white-space:nowrap !important;
+  }
+  #clearAllBtnTop::after{
+    content:"REMOVE" !important;
+    font-size:.68rem !important;
+    font-weight:1000 !important;
+    letter-spacing:.01em !important;
+  }
+}
+
+/* === BAD HABITS XO BRAND ACCENTS === */
+.oc-logo{
+  width:min(900px,94%);
+  max-height:260px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 7px rgba(246,196,69,.70))
+         drop-shadow(0 0 18px rgba(242,140,40,.35)) !important;
+}
+.oc-brand,.section-title,.summary-card h3,.price-main,.selection-total{
+  color:#f6c445 !important;
+}
+.minimum,.sticky-selected,.clear-all-btn,.search-field-wrap{
+  border-color:#f6c445 !important;
+}
+.design-card.selected{
+  border-color:#f6c445 !important;
+  box-shadow:0 0 0 3px rgba(246,196,69,1),0 0 16px rgba(242,140,40,.9) !important;
+}
+.btn-danger,.confirm-remove{
+  border-color:#c93b24;
+}
+
+</style>
 </head>
-
 <body>
-  <div class="page">
-
-    <header>
-      <div class="logo-wrapper">
-        <img src="assets/bad-habits-xo-logo.png?v=3" alt="Bad Habits XO logo" class="logo" id="brandLogo">
+<!-- OMNI-CULT WHOLESALE MINI CART EDITABLE QTY + LARGER SYMBOLS 2026-09-10 -->
+<div class="page">
+<header>
+<img src="assets/bad-habits-xo-logo.png?v=20260914" alt="Bad Habits XO" class="oc-logo">
+<h1 class="oc-brand">Wholesale Pin Order Form</h1>
+<div class="subhead instruction-box">
+        <div class="instruction-step"><span>1</span><strong>Choose your pins.</strong> Use the + / − buttons on any design.</div>
+        <div class="instruction-step"><span>2</span><strong>Adjust your order anytime.</strong> Your selections are displayed at the bottom, where you can type quantities, use + / −, or remove designs.</div>
+        <div class="instruction-step"><span>3</span><strong>Reach at least 100 pins.</strong> Your per-pin price automatically drops as you reach higher quantity tiers.</div>
       </div>
-
-      <h1>Wholesale Pin Order Form</h1>
-      <p style="margin:4px 0 0;color:#f6c445;font-weight:700;">badhabits_xo@yahoo.com</p>
-
-      <p class="instruction-line">
-        Select pins by using +/- or the drop-down. Mix and match any designs. Minimum wholesale order: 100 pins.
-      </p>
-    </header>
-
-    <form
-      id="orderForm"
-      class="card"
-      method="POST"
-      action="https://script.google.com/macros/s/AKfycbwd5iaA2ta2D6nPt1GykKRFwsnrX4TCAYd3MBToizY_MoDoMzDHhJO_xRDaz5GrKP9_AA/exec"
-    >
-      <!-- Single field that contains the pin list + totals -->
-      <input type="hidden" name="items" id="itemsField" />
-
-      <div class="order-grid">
-        <div>
-          <label>Name</label>
-          <input name="name" type="text" required autocomplete="name">
-        </div>
-        <div>
-          <label>Email</label>
-          <input name="email" type="email" required autocomplete="email">
-        </div>
-      </div>
-
-      <div style="margin-top: 10px;">
-        <label>Address</label>
-        <input name="address" type="text" required autocomplete="street-address">
-      </div>
-
-      <div class="order-grid" style="margin-top: 10px;">
-        <div>
-          <label>City</label>
-          <input name="city" type="text" required autocomplete="address-level2">
-        </div>
-        <div>
-          <label>State / Province</label>
-          <input name="state" type="text" required autocomplete="address-level1">
-        </div>
-      </div>
-
-      <div class="order-grid" style="margin-top: 10px;">
-        <div>
-          <label>Postal / ZIP Code</label>
-          <input name="postal" type="text" required autocomplete="postal-code">
-        </div>
-        <div>
-          <label>Country</label>
-          <input name="country" type="text" required autocomplete="country-name">
-        </div>
-      </div>
-
-      <div style="margin-top: 10px;">
-        <label>Reseller Permit / Tax ID (optional)</label>
-        <input name="reseller_id" type="text" autocomplete="off">
-        <div class="field-help">Leave blank if you do not have a reseller permit.</div>
-      </div>
-
-      <div style="margin-top: 10px;">
-        <label>Order notes</label>
-        <textarea name="notes"></textarea>
-      </div>
-
-      <div class="sticky-gallery-bar" id="stickyGalleryBar">
-        <div class="search-row">
-          <label>Search pins</label>
-          <input id="searchInput" type="search"
-            placeholder="Type to filter… e.g. germs, skull, anime" />
-        </div>
-
-        <div class="toolbar">
-          <span id="galleryStatus" class="small-note"></span>
-          <button type="button" id="clearAllBtn" class="clear-all-btn pink-btn">
-            Remove all selections
-          </button>
-        </div>
-      </div>
-
-      <div id="gallery" class="gallery"></div>
-
-      <div class="load-more-wrap">
-        <button type="button" id="loadMoreBtn" class="load-more-btn green-btn">
-          LOAD MORE
-        </button>
-      </div>
-
-      <p class="disclaimer">Wholesale pricing shown before tax and shipping.</p>
-
-      <!-- SUMMARY ROW: three equal boxes -->
-      <div class="summary-row">
-        <!-- Left: Pricing table -->
-        <div class="summary-col">
-          <div class="summary-panel">
-            <div class="pricing-table">
-              <h3>Wholesale Pricing (USD)</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Qty Range</th>
-                    <th>Price / pin</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>100–199</td><td>$1.00</td></tr>
-                  <tr><td>200–299</td><td>$0.95</td></tr>
-                  <tr><td>300–399</td><td>$0.90</td></tr>
-                  <tr><td>400–499</td><td>$0.85</td></tr>
-                  <tr><td>500–749</td><td>$0.80</td></tr>
-                  <tr><td>750–999</td><td>$0.75</td></tr>
-                  <tr><td>1000+</td><td>$0.70</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Middle: Live price calculator -->
-        <div class="summary-col">
-          <div class="summary-panel">
-            <div id="priceSummary" class="price-summary">
-              <div class="line-strong">Estimated total: –</div>
-              <div>Increase your selection to unlock wholesale pricing.</div>
-            </div>
-            <div class="tax-note">
-              Final invoice will include any applicable sales tax and shipping fees.
-              Orders without a valid reseller permit are taxable.
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Total selected + scrollable list -->
-        <div class="summary-col">
-          <div class="summary-panel">
-            <p id="selectionSummary" class="selection-summary">
-              Total selected: 0 pins
-            </p>
-            <div id="selectionList" class="selection-list">
-              <div class="selection-list-empty">No pins selected yet.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button type="submit" class="submit-btn green-btn">Submit order</button>
-      <div id="formStatus" class="status" role="alert"></div>
-    </form>
+      <div class="minimum" id="minimumNotice">100 PIN MINIMUM</div>
+</header>
+<form id="orderForm" method="POST" action="https://script.google.com/macros/s/AKfycbwd5iaA2ta2D6nPt1GykKRFwsnrX4TCAYd3MBToizY_MoDoMzDHhJO_xRDaz5GrKP9_AA/exec">
+<input type="hidden" name="items" id="itemsField">
+<section class="panel"><h2 class="section-title">Customer & Shipping Information</h2><div class="form-grid">
+<div><label>Name</label><input name="name" type="text" required autocomplete="name"></div><div><label>Email</label><input name="email" type="email" required autocomplete="email"></div>
+<div class="full"><label>Address</label><input name="address" type="text" required autocomplete="street-address"></div><div><label>City</label><input name="city" type="text" required autocomplete="address-level2"></div><div><label>State / Province</label><input name="state" type="text" required autocomplete="address-level1"></div>
+<div><label>Postal / ZIP Code</label><input name="postal" type="text" required autocomplete="postal-code"></div><div><label>Country</label><input name="country" type="text" required autocomplete="country-name"></div>
+<div class="full"><label>Reseller Permit / Tax ID (optional)</label><input name="reseller_id" type="text"><div class="help">Enter a valid reseller permit / tax ID if applicable. Orders without a valid reseller permit are subject to applicable sales tax. Shipping will be added to the final invoice.</div></div>
+<div class="full"><label>Order Notes</label><textarea name="notes" placeholder="Anything we should know about this order?"></textarea></div></div></section>
+<section class="panel"><h2 class="section-title">Choose Your Pins</h2><div class="search-wrap">
+  <div class="search-field-wrap">
+    <input id="searchInput" type="search" placeholder="Search pins..." autocomplete="off">
+    <button type="button" id="searchX" class="search-clear-integrated" aria-label="Clear search">CLEAR</button>
   </div>
+  <div id="stickySelected" class="sticky-selected">SELECTED: 0</div>
+  <button type="button" id="clearAllBtnTop" class="btn clear-all-btn">REMOVE ALL SELECTIONS</button>
+</div><div class="toolbar"><span id="galleryStatus"></span></div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const PAGE_SIZE = 120;
-      const STORAGE_KEY = "badhabitsxo_pin_order";
-      const MIN_TOTAL = 100;
+<div id="gallery" class="gallery"></div>
+<div class="gallery-bottom-actions">
+  <button type="button" id="loadMoreBtn" class="btn btn-solid load-btn">LOAD MORE</button>
+</div><div class="disclaimer">Final printed colors may vary slightly. Visible cutline colors are not printed.</div></section>
+<section class="summary-grid"><div class="summary-card"><h3>Wholesale Pricing (USD)</h3><table><thead><tr><th>Quantity</th><th>Price / Pin</th></tr></thead><tbody><tr id="tier100"><td>100–199</td><td>$1.00</td></tr><tr id="tier200"><td>200–299</td><td>$0.95</td></tr><tr id="tier300"><td>300–399</td><td>$0.90</td></tr><tr id="tier400"><td>400–499</td><td>$0.85</td></tr><tr id="tier500"><td>500–749</td><td>$0.80</td></tr><tr id="tier750"><td>750–999</td><td>$0.75</td></tr><tr id="tier1000"><td>1000+</td><td>$0.70</td></tr></tbody></table></div>
+<div class="summary-card"><h3>Estimated Order</h3><div id="priceSummary"><div class="price-main">Estimated total: —</div><div class="muted">Select at least 100 pins to unlock wholesale pricing.</div></div></div>
+<div class="summary-card"><h3>Your Selections</h3><div id="selectionSummary" class="selection-total">TOTAL SELECTED: 0 PINS</div><div id="selectionList" class="selection-list"><div class="muted" style="padding-top:9px;text-align:center">No pins selected yet.</div></div></div></section>
+<button type="submit" class="btn btn-solid submit">SUBMIT WHOLESALE ORDER</button><div id="formStatus" class="status" role="alert"></div>
+</form></div>
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-box">
+    <button type="button" id="modalClose" class="modal-close" aria-label="Close">×</button>
+    <div id="modalName" class="modal-name"></div>
+    <div class="modal-img-wrap"><img id="modalImg" alt=""></div>
+    <div class="modal-controls">
+      <button type="button" id="modalMinus" class="modal-qty-btn">–</button>
+      <span id="modalQty" class="modal-qty">0</span>
+      <button type="button" id="modalPlus" class="modal-qty-btn">+</button>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{const PAGE_SIZE=32,STORAGE_KEY='badhabitsxo_pin_order_v2',MIN_TOTAL=100;const gallery=document.getElementById('gallery'),loadMoreBtn=document.getElementById('loadMoreBtn'),searchInput=document.getElementById('searchInput'),searchX=document.getElementById('searchX'),itemsField=document.getElementById('itemsField'),formStatus=document.getElementById('formStatus'),galleryStatus=document.getElementById('galleryStatus'),clearAllBtnTop=document.getElementById('clearAllBtnTop'),confirmModal=document.getElementById('confirmModal'),confirmCancel=document.getElementById('confirmCancel'),confirmRemove=document.getElementById('confirmRemove'),orderForm=document.getElementById('orderForm'),selectionSummary=document.getElementById('selectionSummary'),priceSummary=document.getElementById('priceSummary'),selectionList=document.getElementById('selectionList'),stickySelected=document.getElementById('stickySelected'),minimumNotice=document.getElementById('minimumNotice'),submitBtn=document.querySelector('.submit'),modal=document.getElementById('modal'),modalBox=document.querySelector('.modal-box'),modalImg=document.getElementById('modalImg'),modalName=document.getElementById('modalName'),modalClose=document.getElementById('modalClose'),modalMinus=document.getElementById('modalMinus'),modalPlus=document.getElementById('modalPlus'),modalQty=document.getElementById('modalQty');const fields=['name','email','address','city','state','postal','country','reseller_id','notes'];
+const tierRows=[
+  {min:100,max:199,el:document.getElementById('tier100')},
+  {min:200,max:299,el:document.getElementById('tier200')},
+  {min:300,max:399,el:document.getElementById('tier300')},
+  {min:400,max:499,el:document.getElementById('tier400')},
+  {min:500,max:749,el:document.getElementById('tier500')},
+  {min:750,max:999,el:document.getElementById('tier750')},
+  {min:1000,max:Infinity,el:document.getElementById('tier1000')}
+];let all=[],filtered=[],rendered=0,browseRendered=PAGE_SIZE,isSearching=false,browseScrollY=0,selections={},modalKey=null,modalDesign=null;
+const gf=n=>orderForm.querySelector(`[name="${n}"]`);function persist(){try{const form={};fields.forEach(n=>form[n]=gf(n)?.value||'');localStorage.setItem(STORAGE_KEY,JSON.stringify({selections,form}))}catch(e){}}function load(){try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');if(d.selections)selections=d.selections;if(d.form)fields.forEach(n=>{if(gf(n))gf(n).value=d.form[n]||''})}catch(e){}}fields.forEach(n=>gf(n)?.addEventListener('input',persist));
+function unit(t){if(t>=1000)return .70;if(t>=750)return .75;if(t>=500)return .80;if(t>=400)return .85;if(t>=300)return .90;if(t>=200)return .95;if(t>=100)return 1.00;return null}
+function nextTier(t){if(t<100)return[100,1.00];if(t<200)return[200,.95];if(t<300)return[300,.90];if(t<400)return[400,.85];if(t<500)return[500,.80];if(t<750)return[750,.75];if(t<1000)return[1000,.70];return null}
+function total(){return Object.values(selections).reduce((s,n)=>s+(parseInt(n)||0),0)}
+function price(t){
+  const u=unit(t);
 
-      const gallery = document.getElementById("gallery");
-      const loadMoreBtn = document.getElementById("loadMoreBtn");
-      const searchInput = document.getElementById("searchInput");
-      const itemsField = document.getElementById("itemsField");
-      const formStatus = document.getElementById("formStatus");
-      const galleryStatus = document.getElementById("galleryStatus");
-      const clearAllBtn = document.getElementById("clearAllBtn");
-      const orderForm = document.getElementById("orderForm");
+  tierRows.forEach(r=>r.el&&r.el.classList.remove('active-tier'));
+  const active=tierRows.find(r=>t>=r.min&&t<=r.max);
+  if(active&&active.el)active.el.classList.add('active-tier');
 
-      const nameInput = orderForm.querySelector('input[name="name"]');
-      const emailInput = orderForm.querySelector('input[name="email"]');
-      const notesInput = orderForm.querySelector('textarea[name="notes"]');
-      const addressInput = orderForm.querySelector('input[name="address"]');
-      const cityInput = orderForm.querySelector('input[name="city"]');
-      const stateInput = orderForm.querySelector('input[name="state"]');
-      const postalInput = orderForm.querySelector('input[name="postal"]');
-      const countryInput = orderForm.querySelector('input[name="country"]');
-      const resellerInput = orderForm.querySelector('input[name="reseller_id"]');
+  if(!u){
+    const need=Math.max(0,MIN_TOTAL-t);
+    priceSummary.innerHTML=`<div class="price-main">Estimated total: —</div>
+      <div class="muted">Select ${need} more pin${need===1?'':'s'} to reach the 100-pin wholesale minimum.</div>`;
+    return;
+  }
 
-      const selectionSummary = document.getElementById("selectionSummary");
-      const priceSummary = document.getElementById("priceSummary");
-      const selectionList = document.getElementById("selectionList");
+  const estimated=(t*u).toFixed(2);
+  const n=nextTier(t);
+  let h=`<div class="price-main">Estimated total: $${estimated} USD</div>
+    <div class="calc-line">${t} pins × $${u.toFixed(2)} each = <strong>$${estimated}</strong></div>`;
 
-      let all = [];
-      let filtered = [];
-      let count = 0;
-      let selections = {};
+  if(n){
+    const diff=n[0]-t;
+    if(diff>0){
+      h+=`<div class="next-tier">Add <strong>${diff}</strong> more pin${diff===1?'':'s'} to unlock <strong>$${n[1].toFixed(2)} each</strong>.</div>`;
+    }
+  }else{
+    h+=`<div class="next-tier">You are at the best wholesale tier: <strong>$${u.toFixed(2)} each</strong>.</div>`;
+  }
 
-      loadMoreBtn.style.display = "none";
+  priceSummary.innerHTML=h;
+}
+function sync(k){const c=gallery.querySelector(`[data-key="${CSS.escape(k)}"]`);if(!c)return;const q=selections[k]||0;c.classList.toggle('selected',q>0);c.querySelector('.qty-value').textContent=q}function setQty(k,q){q=Math.max(0,Math.min(99,parseInt(q)||0));if(q)selections[k]=q;else delete selections[k];sync(k);if(modalKey===k)modalQty.textContent=q;persist();summary();formStatus.textContent='';formStatus.classList.remove('error')}
+function cart(){
+  selectionList.innerHTML='';
+  const e=Object.entries(selections)
+    .map(([key,qty])=>({key,qty,design:all.find(d=>d.key===key)}))
+    .filter(x=>x.design)
+    .sort((a,b)=>a.design.display.localeCompare(b.design.display));
 
-      /* ---------- PERSIST STATE ---------- */
-      function persistState() {
-        try {
-          const payload = {
-            selections,
-            form: {
-              name: nameInput.value,
-              email: emailInput.value,
-              notes: notesInput.value,
-              address: addressInput.value,
-              city: cityInput.value,
-              state: stateInput.value,
-              postal: postalInput.value,
-              country: countryInput.value,
-              reseller_id: resellerInput.value
-            }
-          };
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-        } catch (_) {}
+  if(!e.length){
+    selectionList.innerHTML='<div class="muted" style="padding-top:9px;text-align:center">No pins selected yet.</div>';
+    return;
+  }
+
+  e.forEach(x=>{
+    const r=document.createElement('div');
+    r.className='selection-row';
+    r.innerHTML=`<div class="selection-name" title="${x.design.display}">${x.design.display}</div>
+      <div class="selection-controls">
+        <button type="button" class="qty-btn mini minus">−</button>
+        <input class="mini-qty-input" type="number" min="0" max="99" value="${x.qty}" inputmode="numeric" aria-label="Quantity for ${x.design.display}">
+        <button type="button" class="qty-btn mini plus">+</button>
+        <button type="button" class="qty-btn mini remove" aria-label="Remove ${x.design.display}">×</button>
+      </div>`;
+
+    r.querySelector('.minus').onclick=()=>setQty(x.key,(selections[x.key]||0)-1);
+    r.querySelector('.plus').onclick=()=>setQty(x.key,(selections[x.key]||0)+1);
+    r.querySelector('.remove').onclick=()=>setQty(x.key,0);
+
+    const input=r.querySelector('.mini-qty-input');
+    input.addEventListener('change',()=>setQty(x.key,input.value));
+    input.addEventListener('keydown',ev=>{
+      if(ev.key==='Enter'){
+        ev.preventDefault();
+        input.blur();
       }
-
-      function loadState() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return;
-          const data = JSON.parse(raw);
-          if (data.selections) selections = data.selections;
-          if (data.form) {
-            nameInput.value = data.form.name || "";
-            emailInput.value = data.form.email || "";
-            notesInput.value = data.form.notes || "";
-            addressInput.value = data.form.address || "";
-            cityInput.value = data.form.city || "";
-            stateInput.value = data.form.state || "";
-            postalInput.value = data.form.postal || "";
-            countryInput.value = data.form.country || "";
-            resellerInput.value = data.form.reseller_id || "";
-          }
-        } catch (_) {}
-      }
-
-      [
-        nameInput, emailInput, notesInput,
-        addressInput, cityInput, stateInput, postalInput, countryInput, resellerInput
-      ].forEach(el => el.addEventListener("input", persistState));
-
-      /* ---------- PRICING LOGIC ---------- */
-      function getUnitPrice(total) {
-        if (total >= 1000) return 0.70;
-        if (total >= 750)  return 0.75;
-        if (total >= 500)  return 0.80;
-        if (total >= 400)  return 0.85;
-        if (total >= 300)  return 0.90;
-        if (total >= 200)  return 0.95;
-        if (total >= 100)  return 1.00;
-        return null;
-      }
-
-      function getNextTierInfo(total) {
-        if (total < 100)  return { at: 100,  price: 1.00 };
-        if (total < 200)  return { at: 200,  price: 0.95 };
-        if (total < 300)  return { at: 300,  price: 0.90 };
-        if (total < 400)  return { at: 400,  price: 0.85 };
-        if (total < 500)  return { at: 500,  price: 0.80 };
-        if (total < 750)  return { at: 750,  price: 0.75 };
-        if (total < 1000) return { at: 1000, price: 0.70 };
-        return null;
-      }
-
-      function updatePriceSummary(total) {
-        const unit = getUnitPrice(total);
-
-        if (!unit) {
-          priceSummary.innerHTML = `
-            <div class="line-strong">Estimated total: –</div>
-            <div>Select at least 100 pins to unlock wholesale pricing.</div>
-          `;
-          return;
-        }
-
-        const est = (total * unit).toFixed(2);
-        const next = getNextTierInfo(total);
-
-        let html = `
-          <div class="line-strong">Estimated total: $${est} USD</div>
-          <div>${total} pins at $${unit.toFixed(2)} each (before tax & shipping).</div>
-        `;
-
-        if (next) {
-          const diff = next.at - total;
-          if (diff > 0) {
-            html += `
-              <div style="margin-top:4px;font-size:0.8rem;color:#9ca3af;">
-                Add ${diff} more pin${diff === 1 ? "" : "s"} to reach
-                ${next.at} at $${next.price.toFixed(2)} each.
-              </div>
-            `;
-          }
-        }
-
-        priceSummary.innerHTML = html;
-      }
-
-      /* ---------- MINI-CART REBUILD ---------- */
-      function rebuildSelectionList() {
-        selectionList.innerHTML = "";
-
-        const entries = Object.entries(selections);
-        if (!entries.length) {
-          const empty = document.createElement("div");
-          empty.className = "selection-list-empty";
-          empty.textContent = "No pins selected yet.";
-          selectionList.appendChild(empty);
-          return;
-        }
-
-        entries.forEach(([key, qty]) => {
-          const design = all.find(d => d.key === key);
-          if (!design) return;
-
-          const row = document.createElement("div");
-          row.className = "selection-row";
-          row.dataset.key = key;
-
-          row.innerHTML = `
-            <div class="selection-name" title="${design.display}">${design.display}</div>
-            <div class="selection-controls">
-              <button type="button" class="mini-btn green mini-minus">−</button>
-              <span class="selection-qty">${qty}</span>
-              <button type="button" class="mini-btn green mini-plus">+</button>
-              <button type="button" class="mini-btn pink mini-remove">x</button>
-            </div>
-          `;
-
-          const minusBtn = row.querySelector(".mini-minus");
-          const plusBtn = row.querySelector(".mini-plus");
-          const removeBtn = row.querySelector(".mini-remove");
-          const qtySpan = row.querySelector(".selection-qty");
-
-          function syncToCard(newQty) {
-            const selectEl = document.querySelector('.qty-select[data-key="' + key + '"]');
-            if (!selectEl) return;
-            const card = selectEl.closest(".design-card");
-            selectEl.value = String(newQty);
-            updateSelection(key, newQty, card, { skipRebuildCart: true });
-            qtySpan.textContent = newQty;
-          }
-
-          minusBtn.addEventListener("click", () => {
-            const current = parseInt(qtySpan.textContent, 10) || 0;
-            const next = Math.max(0, current - 1);
-            syncToCard(next);
-            updateSelectionSummary();
-          });
-
-          plusBtn.addEventListener("click", () => {
-            const current = parseInt(qtySpan.textContent, 10) || 0;
-            const next = Math.min(99, current + 1);
-            syncToCard(next);
-            updateSelectionSummary();
-          });
-
-          removeBtn.addEventListener("click", () => {
-            syncToCard(0);
-            updateSelectionSummary();
-          });
-
-          selectionList.appendChild(row);
-        });
-      }
-
-      /* ---------- FETCH DESIGNS ---------- */
-      fetch("designs.json")
-        .then(r => r.json())
-        .then(data => {
-          all = data.map((d, i) => {
-            const raw = d.img || d.image || d.src || d.file || "";
-            const base = raw.substring(raw.lastIndexOf("/") + 1).replace(/\.[^.]+$/, "");
-            const img = raw.includes("/") ? raw : "buttons/" + raw;
-            return { key: String(i), name: base.toLowerCase(), display: base, img };
-          });
-
-          all.sort((a, b) => a.display.localeCompare(b.display));
-
-          loadState();
-          filtered = all.slice();
-          resetAndRender();
-        });
-
-      /* ---------- RENDERING ---------- */
-      function resetAndRender() {
-        gallery.innerHTML = "";
-        count = 0;
-
-        if (filtered.length > PAGE_SIZE) loadMoreBtn.style.display = "inline-block";
-        else loadMoreBtn.style.display = filtered.length ? "inline-block" : "none";
-
-        renderMore();
-        updateSelectionSummary();
-      }
-
-      function renderMore() {
-        const next = filtered.slice(count, count + PAGE_SIZE);
-        next.forEach(addCard);
-        count += next.length;
-        padGrid();
-        updateGalleryStatus();
-        if (count >= filtered.length) loadMoreBtn.style.display = "none";
-      }
-
-      function addCard(design) {
-        const card = document.createElement("div");
-        card.className = "design-card";
-
-        const key = design.key;
-
-        card.innerHTML = `
-          <div class="thumb-wrapper"><img src="${design.img}" alt="${design.display}" loading="lazy"></div>
-          <div class="design-name">${design.display}</div>
-          <div class="design-controls">
-            <div class="qty-block">
-              <div class="qty-label">QTY</div>
-              <div class="qty-group">
-                <button type="button" class="qty-btn green-btn qty-minus" data-key="${key}">−</button>
-                <select class="qty-select" data-key="${key}">
-                  ${Array.from({length: 100}, (_, x) => `<option value="${x}">${x}</option>`).join("")}
-                </select>
-                <button type="button" class="qty-btn green-btn qty-plus" data-key="${key}">+</button>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="remove-btn pink-btn" data-key="${key}">Remove</button>
-        `;
-
-        const qty = card.querySelector(".qty-select");
-        const minusBtn = card.querySelector(".qty-minus");
-        const plusBtn = card.querySelector(".qty-plus");
-        const removeBtn = card.querySelector(".remove-btn");
-
-        const savedQty = selections[key];
-        if (savedQty && savedQty > 0) {
-          qty.value = String(savedQty);
-          card.classList.add("selected");
-        }
-
-        qty.addEventListener("change", () => {
-          const n = parseInt(qty.value, 10) || 0;
-          updateSelection(key, n, card);
-        });
-
-        minusBtn.addEventListener("click", () => {
-          let n = parseInt(qty.value, 10) || 0;
-          if (n > 0) n -= 1;
-          qty.value = String(n);
-          updateSelection(key, n, card);
-        });
-
-        plusBtn.addEventListener("click", () => {
-          let n = parseInt(qty.value, 10) || 0;
-          if (n < 99) n += 1;
-          qty.value = String(n);
-          updateSelection(key, n, card);
-        });
-
-        removeBtn.addEventListener("click", () => {
-          qty.value = "0";
-          updateSelection(key, 0, card);
-        });
-
-        gallery.appendChild(card);
-      }
-
-      function updateSelection(key, qty, card, opts = {}) {
-        if (qty > 0) {
-          selections[key] = qty;
-          card.classList.add("selected");
-        } else {
-          delete selections[key];
-          card.classList.remove("selected");
-        }
-
-        if (Object.keys(selections).length > 0) {
-          formStatus.textContent = "";
-          formStatus.classList.remove("error");
-        }
-
-        persistState();
-
-        if (!opts.skipRebuildCart) {
-          updateSelectionSummary();
-        }
-      }
-
-      function updateSelectionSummary() {
-        const total = Object.values(selections).reduce(
-          (sum, n) => sum + (parseInt(n, 10) || 0),
-          0
-        );
-        selectionSummary.textContent =
-          "Total selected: " + total + " pin" + (total === 1 ? "" : "s");
-
-        updatePriceSummary(total);
-        rebuildSelectionList();
-        return total;
-      }
-
-      function padGrid() {
-        const cols = getComputedStyle(gallery).gridTemplateColumns.split(" ").length;
-        const real = gallery.querySelectorAll(".design-card:not(.placeholder)").length;
-        const rem = real % cols;
-        gallery.querySelectorAll(".placeholder").forEach(p => p.remove());
-        if (rem !== 0) {
-          for (let i = 0; i < cols - rem; i++) {
-            const ph = document.createElement("div");
-            ph.className = "design-card placeholder";
-            gallery.appendChild(ph);
-          }
-        }
-      }
-
-      function updateGalleryStatus() {
-        if (!filtered.length) {
-          galleryStatus.textContent = "No designs match that search.";
-        } else {
-          galleryStatus.textContent =
-            "Showing " + Math.min(count, filtered.length) + " of " + filtered.length + " designs";
-        }
-      }
-
-      window.addEventListener("resize", padGrid);
-
-      /* ---------- SEARCH ---------- */
-      const stickyGalleryBar = document.getElementById("stickyGalleryBar");
-      let preSearchScrollY = null;
-      let searchWasActive = false;
-
-      searchInput.addEventListener("input", () => {
-        const q = searchInput.value.toLowerCase().trim();
-        const isActive = q.length > 0;
-
-        if (isActive && !searchWasActive) {
-          preSearchScrollY = window.scrollY;
-        }
-
-        filtered = isActive
-          ? all.filter(d => d.name.includes(q))
-          : all.slice();
-
-        resetAndRender();
-
-        requestAnimationFrame(() => {
-          if (isActive) {
-            if (!searchWasActive) {
-              const y = stickyGalleryBar.getBoundingClientRect().top + window.scrollY;
-              window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
-            }
-          } else if (searchWasActive && preSearchScrollY !== null) {
-            window.scrollTo({ top: preSearchScrollY, behavior: "auto" });
-            preSearchScrollY = null;
-          }
-          searchWasActive = isActive;
-        });
-      });
-
-      /* ---------- LOAD MORE ---------- */
-      loadMoreBtn.addEventListener("click", renderMore);
-
-      /* ---------- CLEAR ALL ---------- */
-      clearAllBtn.addEventListener("click", () => {
-        if (!Object.keys(selections).length) return;
-
-        const ok = window.confirm("Are you sure you want to remove all selected pins?");
-        if (!ok) return;
-
-        selections = {};
-        persistState();
-        resetAndRender();
-      });
-
-      /* ---------- SUBMIT (via fetch + redirect to success.html) ---------- */
-      orderForm.addEventListener("submit", async e => {
-        e.preventDefault(); // prevent normal navigation; we manage it
-
-        const entries = Object.entries(selections);
-        if (!entries.length) {
-          formStatus.textContent = "Select at least one pin before submitting.";
-          formStatus.classList.add("error");
-          return;
-        }
-
-        const total = updateSelectionSummary();
-        if (total < MIN_TOTAL) {
-          const message =
-            "A minimum of " + MIN_TOTAL + " pins is required to proceed. " +
-            "You currently have " + total + ".";
-          alert(message);
-          formStatus.textContent = message;
-          formStatus.classList.add("error");
-          return;
-        }
-
-        const lines = [];
-        let totalQty = 0;
-
-        entries.forEach(([k, qty]) => {
-          const d = all.find(x => x.key === k);
-          if (!d) return;
-          const n = parseInt(qty, 10) || 0;
-          totalQty += n;
-          lines.push(`${d.display} x ${n}`);
-        });
-
-        const unit = getUnitPrice(totalQty);
-        let estimatedLine = "";
-        if (unit) {
-          const estimatedTotal = (totalQty * unit).toFixed(2);
-          estimatedLine = "ESTIMATED TOTAL: $" + estimatedTotal + " USD (before tax & shipping)";
-        }
-
-        lines.push("");
-        lines.push("TOTAL PINS: " + totalQty);
-        if (estimatedLine) {
-          lines.push(estimatedLine);
-        }
-
-        itemsField.value = lines.join("\n");
-
-        persistState();
-
-        formStatus.textContent = "Submitting order...";
-        formStatus.classList.remove("error");
-
-        try {
-          // Fire-and-forget POST to Apps Script (no-cors avoids CORS errors)
-          await fetch(orderForm.action, {
-            method: "POST",
-            mode: "no-cors",
-            body: new FormData(orderForm)
-          });
-        } catch (err) {
-          console.error("Error submitting to Apps Script:", err);
-          // Optional: show an error, but we'll still send user to success page
-        }
-
-        // Redirect to your clean, banner-free success page
-        window.location.href = "success.html";
-      });
     });
-  </script>
 
-</body>
-</html>
+    selectionList.appendChild(r);
+  });
+}
+function summary(){
+  const t=total();
+  selectionSummary.textContent=`TOTAL SELECTED: ${t} PIN${t===1?'':'S'}`;
+  stickySelected.textContent=`SELECTED: ${t}`;
+  price(t);
+  cart();
+
+  const ready=t>=MIN_TOTAL;
+  submitBtn.classList.toggle('submit-ready',ready);
+  submitBtn.classList.toggle('submit-locked',!ready);
+  submitBtn.setAttribute('aria-disabled',ready?'false':'true');
+
+  return t;
+}
+function openModal(d){
+  modalDesign=d;
+  modalKey=d.key;
+  modalImg.src=d.img;
+  modalImg.alt=d.display;
+  modalName.textContent=d.display;
+  modalQty.textContent=selections[d.key]||0;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+}
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  modalImg.src='';
+  modalKey=null;
+  modalDesign=null;
+}
+modalMinus.onclick=e=>{e.stopPropagation();if(modalKey)setQty(modalKey,(selections[modalKey]||0)-1)};
+modalPlus.onclick=e=>{e.stopPropagation();if(modalKey)setQty(modalKey,(selections[modalKey]||0)+1)};
+modalClose.onclick=e=>{e.stopPropagation();closeModal()};
+
+/* Clicking anywhere on the enlarged card closes it EXCEPT the + and - controls. */
+modalBox.addEventListener('click',e=>{
+  if(e.target.closest('#modalMinus,#modalPlus')) return;
+  closeModal();
+});
+modal.onclick=e=>{if(e.target===modal)closeModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function addCard(d){
+  const c=document.createElement('div');
+  c.className='design-card';
+  c.dataset.key=d.key;
+  const q=selections[d.key]||0;
+  if(q)c.classList.add('selected');
+  c.innerHTML=`<div class="design-name" title="${d.display}">${d.display}</div><div class="thumb"><img src="${d.img}" alt="${d.display}" loading="lazy"></div><div class="qty-row"><button type="button" class="qty-btn minus">−</button><div class="qty-value">${q}</div><button type="button" class="qty-btn plus">+</button></div>`;
+  c.querySelector('.thumb').onclick=()=>openModal(d);
+  c.querySelector('.minus').onclick=()=>setQty(d.key,(selections[d.key]||0)-1);
+  c.querySelector('.plus').onclick=()=>setQty(d.key,(selections[d.key]||0)+1);
+  gallery.appendChild(c);
+}
+
+function status(){
+  galleryStatus.textContent=filtered.length
+    ?`Showing ${Math.min(rendered,filtered.length)} of ${filtered.length} designs`
+    :'No designs match that search.';
+}
+
+function renderToCount(count,preserveScroll=true){
+  const y=window.scrollY;
+  gallery.innerHTML='';
+  rendered=0;
+  const target=Math.min(Math.max(count,0),filtered.length);
+  filtered.slice(0,target).forEach(addCard);
+  rendered=target;
+  status();
+  loadMoreBtn.style.display=rendered<filtered.length?'inline-block':'none';
+  summary();
+  if(preserveScroll){
+    requestAnimationFrame(()=>window.scrollTo({top:y,left:0,behavior:'auto'}));
+  }
+}
+
+function more(){
+  const y=window.scrollY;
+  const n=filtered.slice(rendered,rendered+PAGE_SIZE);
+  n.forEach(addCard);
+  rendered+=n.length;
+
+  /* Only advance the remembered main-gallery position when NOT searching. */
+  if(!isSearching) browseRendered=rendered;
+
+  status();
+  loadMoreBtn.style.display=rendered<filtered.length?'inline-block':'none';
+
+  /* Adding cards should never move the user's viewport. */
+  requestAnimationFrame(()=>window.scrollTo({top:y,left:0,behavior:'auto'}));
+}
+
+fetch('designs.json')
+  .then(r=>{if(!r.ok)throw Error();return r.json()})
+  .then(data=>{
+    all=data.map((d,i)=>{
+      const raw=d.img||d.image||d.src||d.file||'';
+      const file=raw.substring(raw.lastIndexOf('/')+1),base=file.replace(/\.[^.]+$/,'');
+      const img=raw.includes('/')?raw.replace(/^\.\//,''):'buttons/'+raw;
+      return{key:file||String(i),name:base.toLowerCase(),display:base,img};
+    }).sort((a,b)=>a.display.localeCompare(b.display));
+
+    load();
+    filtered=all.slice();
+    browseRendered=PAGE_SIZE;
+    renderToCount(browseRendered,false);
+  })
+  .catch(()=>{
+    galleryStatus.textContent='Unable to load pin designs.';
+    formStatus.textContent='The pin gallery could not be loaded. Please refresh the page.';
+    formStatus.classList.add('error');
+  });
+
+searchInput.oninput=()=>{
+  const q=searchInput.value.toLowerCase().trim();
+  searchX.classList.toggle('visible', q.length>0);
+
+  if(q){
+    /* On the first keystroke of a search, remember exactly where the user was. */
+    if(!isSearching){
+      browseRendered=Math.max(rendered,browseRendered,PAGE_SIZE);
+      browseScrollY=window.scrollY;
+      isSearching=true;
+    }
+
+    filtered=all.filter(d=>d.name.includes(q));
+
+    /* Re-render search results, then jump to the top of the pin section/search bar. */
+    renderToCount(PAGE_SIZE,false);
+    requestAnimationFrame(()=>{
+      /* Jump to the top of THIS pin-gallery panel so the
+         "CHOOSE YOUR PINS" heading + search bar are both visible. */
+      const galleryPanel=searchInput.closest('.panel');
+      if(galleryPanel){
+        const y=galleryPanel.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({top:y,left:0,behavior:'auto'});
+      }
+    });
+  }else{
+    /* Deleting the search text entirely restores the browse gallery and old scroll position. */
+    filtered=all.slice();
+    isSearching=false;
+    renderToCount(browseRendered,false);
+    requestAnimationFrame(()=>{
+      window.scrollTo({top:browseScrollY,left:0,behavior:'auto'});
+    });
+  }
+};
+
+searchX.onclick=()=>{
+  searchInput.value='';
+  searchX.classList.remove('visible');
+  filtered=all.slice();
+  isSearching=false;
+
+  /* Restore both the previous loaded count and the exact previous scroll position. */
+  renderToCount(browseRendered,false);
+  requestAnimationFrame(()=>{
+    window.scrollTo({top:browseScrollY,left:0,behavior:'auto'});
+    searchInput.focus({preventScroll:true});
+  });
+};
+
+loadMoreBtn.onclick=more;
+const clearSelections=()=>{
+  if(!Object.keys(selections).length) return;
+  confirmModal.classList.add('open');
+  confirmModal.setAttribute('aria-hidden','false');
+};
+
+const closeConfirm=()=>{
+  confirmModal.classList.remove('open');
+  confirmModal.setAttribute('aria-hidden','true');
+};
+
+confirmCancel.addEventListener('click', closeConfirm);
+
+confirmRemove.addEventListener('click', ()=>{
+  const keepRendered=rendered;
+  selections={};
+  persist();
+  closeConfirm();
+  renderToCount(keepRendered,true);
+});
+
+confirmModal.addEventListener('click', e=>{
+  if(e.target===confirmModal) closeConfirm();
+});
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && confirmModal.classList.contains('open')) closeConfirm();
+});
+
+if(clearAllBtnTop) clearAllBtnTop.addEventListener('click', clearSelections);
+
+
+orderForm.addEventListener('submit',async e=>{e.preventDefault();const t=summary();if(t<MIN_TOTAL){
+  const msg=`A minimum of ${MIN_TOTAL} pins is required. You currently have ${t} selected.`;
+  formStatus.textContent=msg;
+  formStatus.classList.add('error');
+
+  const y=minimumNotice.getBoundingClientRect().top + window.scrollY - 120;
+  window.scrollTo({top:y,left:0,behavior:'smooth'});
+
+  /* Wait for the smooth scroll before starting the glow. */
+  minimumNotice.classList.remove('minimum-alert');
+  setTimeout(()=>{
+    void minimumNotice.offsetWidth;
+    minimumNotice.classList.add('minimum-alert');
+    setTimeout(()=>minimumNotice.classList.remove('minimum-alert'),1800);
+  },700);
+
+  return;
+}const lines=Object.entries(selections).map(([key,qty])=>({qty,design:all.find(d=>d.key===key)})).filter(x=>x.design).sort((a,b)=>a.design.display.localeCompare(b.design.display)).map(x=>`${x.design.display} x ${x.qty}`);const u=unit(t);lines.push('','TOTAL PINS: '+t);if(u){lines.push('PRICE PER PIN: $'+u.toFixed(2));lines.push('ESTIMATED TOTAL: $'+(t*u).toFixed(2)+' USD (before tax & shipping)')}itemsField.value=lines.join("\n");persist();formStatus.textContent='Submitting order...';try{await fetch(orderForm.action,{method:'POST',mode:'no-cors',body:new FormData(orderForm)})}catch(err){console.error(err)}window.location.href='success.html'})});
+</script>
+
+<div id="confirmModal" class="confirm-modal" aria-hidden="true">
+  <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-title" id="confirmTitle">REMOVE ALL SELECTIONS?</div>
+    <div class="confirm-text">This will clear every selected pin from your order.</div>
+    <div class="confirm-actions">
+      <button type="button" id="confirmCancel" class="confirm-btn confirm-cancel">CANCEL</button>
+      <button type="button" id="confirmRemove" class="confirm-btn confirm-remove">REMOVE ALL</button>
+    </div>
+  </div>
+</div>
+
+</body></html>
