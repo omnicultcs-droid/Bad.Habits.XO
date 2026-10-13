@@ -1806,6 +1806,8 @@ tr.active-tier td{
 <section class="summary-grid"><div class="summary-card"><h3>Wholesale Pricing (USD)</h3><table><thead><tr><th>Quantity</th><th>Price / Pin</th></tr></thead><tbody><tr id="tier100"><td>100–199</td><td>$1.00</td></tr><tr id="tier200"><td>200–299</td><td>$0.95</td></tr><tr id="tier300"><td>300–399</td><td>$0.90</td></tr><tr id="tier400"><td>400–499</td><td>$0.85</td></tr><tr id="tier500"><td>500–749</td><td>$0.80</td></tr><tr id="tier750"><td>750–999</td><td>$0.75</td></tr><tr id="tier1000"><td>1000+</td><td>$0.70</td></tr></tbody></table></div>
 <div class="summary-card"><h3>Estimated Order</h3><div id="priceSummary"><div class="price-main">Estimated total: —</div><div class="muted">Select at least 100 pins to unlock wholesale pricing.</div></div></div>
 <div class="summary-card"><h3>Your Selections</h3><div id="selectionSummary" class="selection-total">TOTAL SELECTED: 0 PINS</div><div id="selectionList" class="selection-list"><div class="muted" style="padding-top:9px;text-align:center">No pins selected yet.</div></div></div></section>
+<div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>Leave this field blank<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<div id="oc-turnstile"></div>
 <button type="submit" class="btn btn-solid submit">SUBMIT WHOLESALE ORDER</button><div id="formStatus" class="status" role="alert"></div>
 </form></div>
 <div id="modal" class="modal" aria-hidden="true">
@@ -2118,7 +2120,7 @@ orderForm.addEventListener('submit',async e=>{e.preventDefault();const t=summary
   },700);
 
   return;
-}const lines=Object.entries(selections).map(([key,qty])=>({qty,design:all.find(d=>d.key===key)})).filter(x=>x.design).sort((a,b)=>a.design.display.localeCompare(b.design.display)).map(x=>`${x.design.display} x ${x.qty}`);const u=unit(t);lines.push('','TOTAL PINS: '+t);if(u){lines.push('PRICE PER PIN: $'+u.toFixed(2));lines.push('ESTIMATED TOTAL: $'+(t*u).toFixed(2)+' USD (before tax & shipping)')}itemsField.value=lines.join("\n");persist();formStatus.textContent='Submitting order...';try{await fetch(orderForm.action,{method:'POST',mode:'no-cors',body:new FormData(orderForm)})}catch(err){console.error(err)}window.location.href='success.html'})});
+}const lines=Object.entries(selections).map(([key,qty])=>({qty,design:all.find(d=>d.key===key)})).filter(x=>x.design).sort((a,b)=>a.design.display.localeCompare(b.design.display)).map(x=>`${x.design.display} x ${x.qty}`);const u=unit(t);lines.push('','TOTAL PINS: '+t);if(u){lines.push('PRICE PER PIN: $'+u.toFixed(2));lines.push('ESTIMATED TOTAL: $'+(t*u).toFixed(2)+' USD (before tax & shipping)')}itemsField.value=lines.join("\n");persist();if(await window.ocSubmitWholesale(orderForm))window.location.href='success.html'})});
 </script>
 
 <div id="confirmModal" class="confirm-modal" aria-hidden="true">
@@ -2132,4 +2134,7 @@ orderForm.addEventListener('submit',async e=>{e.preventDefault();const t=summary
   </div>
 </div>
 
+<script>window.OC_FORM={"kind":"pins","sitekey":"0x4AAAAAAFV29q5ILKUHPzMm"};</script>
+<script src="wholesale-protection-client.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </body></html>
